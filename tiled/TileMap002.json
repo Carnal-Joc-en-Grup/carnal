@@ -51,7 +51,7 @@
          "name":"Collisions_aranyes",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":74,
          "x":0,
          "y":0
@@ -110,7 +110,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":20,
          "id":12,
-         "name":"Tiles",
+         "name":"Next",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -175,7 +175,7 @@
          "name":"Collisions",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":74,
          "x":0,
          "y":0
