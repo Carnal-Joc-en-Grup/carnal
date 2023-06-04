@@ -263,11 +263,25 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         });
         break;
       case states.damage: // --------------------------------- DAMAGE
-        if (!this.scene.inputKeys.sneak.isDown && this.canGetUp()) {
+        this.anims.play("damage", true);this.time.addEvent({
+          delay: 1000,
+          callback: () =>{
+              console.log("Damaged");
+              this.hitPoints--;
+          },
+          loop: false
+        });
+        if (this.hitPoints <= 0) {
+          this.setState(states.death);
+          break;
+        }
+        if (this.scene.inputKeys.sneak.isDown || !this.canGetUp()) {
+          this.setState();
+          break;
+        } else {
           this.setState();
           break;
         }
-        this.anims.play("damage", true);
         break;
       case states.death: // ---------------------------------- DEATH
         this.anims.play("death", true);
