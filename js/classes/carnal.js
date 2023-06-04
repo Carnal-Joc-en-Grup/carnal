@@ -9,7 +9,7 @@ const states = {
   sneak: 5,
   sneakAttack: 6,
   damage: 7,
-  death: 8
+  death: 8,
 };
 
 const SPEED = 250;
@@ -35,42 +35,42 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
 
     // En Facu tenia lo que no està comentat. He afeigit tot lo que està comentat a partir d'aquí, es a dir sa resta d'estats i ses seves animacions
 
-    //this.scene.anims.create({
-    //  key: "walk",
-    //  frames: this.scene.anims.generateFrameNumbers("carnal_walk", {
-    //    start: 0,
-    //    end: 4,
-    //  }),
-    //  frameRate: 8,
-    //  repeat: 0
-    //});
-    //this.scene.anims.create({
-    //  key: "attack",
-    //  frames: this.scene.anims.generateFrameNumbers("carnal_attack", {
-    //    start: 0,
-    //    end: 3,
-    //  }),
-    //  frameRate: 8,
-    //  repeat: 0
-    //});
-    //this.scene.anims.create({
-    //  key: "sneak",
-    //  frames: this.scene.anims.generateFrameNumbers("carnal_sneak", {
-    //    start: 0,
-    //    end: 2,
-    //  }),
-    //  frameRate: 8,
-    //  repeat: 0
-    //});
-    //this.scene.anims.create({
-    //  key: "sneak_attack",
-    //  frames: this.scene.anims.generateFrameNumbers("carnal_sneak_attack", {
-    //    start: 0,
-    //    end: 2,
-    //  }),
-    //  frameRate: 8,
-    //  repeat: 0
-    //});
+    this.scene.anims.create({
+      key: "walk",
+      frames: this.scene.anims.generateFrameNumbers("carnal_walk", {
+        start: 0,
+        end: 4,
+      }),
+      frameRate: 8,
+      repeat: 0,
+    });
+    this.scene.anims.create({
+      key: "attack",
+      frames: this.scene.anims.generateFrameNumbers("carnal_attack", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 8,
+      repeat: 0,
+    });
+    this.scene.anims.create({
+      key: "sneak",
+      frames: this.scene.anims.generateFrameNumbers("carnal_sneak", {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 8,
+      repeat: 0,
+    });
+    this.scene.anims.create({
+      key: "sneak_attack",
+      frames: this.scene.anims.generateFrameNumbers("carnal_sneak_attack", {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 8,
+      repeat: 0,
+    });
     this.scene.anims.create({
       key: "jump",
       frames: this.scene.anims.generateFrameNumbers("carnal_jump", {
@@ -78,7 +78,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         end: 3,
       }),
       frameRate: 8,
-      repeat: 0
+      repeat: 0,
     });
     this.scene.anims.create({
       key: "fall",
@@ -95,32 +95,32 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         end: 7,
       }),
       frameRate: 8,
-      repeat: 0
+      repeat: 0,
     });
     this.scene.anims.create({
       key: "idle",
-      frames: this.scene.anims.generateFrameNumbers("carnal_wait", {
+      frames: this.scene.anims.generateFrameNumbers("carnal_idle", {
         start: 0,
         end: 0,
       }),
       frameRate: 0,
     });
-    //this.scene.anims.create({
-    //  key: "damage",
-    //  frames: this.scene.anims.generateFrameNumbers("carnal_damage", {
-    //    start: 0,
-    //    end: 0,
-    //  }),
-    //  frameRate: 0,
-    //});
-    //this.scene.anims.create({
-    //  key: "death",
-    //  frames: this.scene.anims.generateFrameNumbers("carnal_death", {
-    //    start: 0,
-    //    end: 0,
-    //  }),
-    //  frameRate: 0,
-    //});
+    this.scene.anims.create({
+      key: "damage",
+      frames: this.scene.anims.generateFrameNumbers("carnal_damage", {
+        start: 0,
+        end: 0,
+      }),
+      frameRate: 0,
+    });
+    this.scene.anims.create({
+      key: "death",
+      frames: this.scene.anims.generateFrameNumbers("carnal_death", {
+        start: 0,
+        end: 0,
+      }),
+      frameRate: 0,
+    });
   }
   update() {
     if (this.scene.inputKeys.left.isDown) {
@@ -138,7 +138,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
     } else if (this.body.onFloor()) {
       this.actualState = states.idle;
     }
-    
+
     switch (this.actualState) {
       case states.idle:
         this.anims.play("idle", true);
@@ -157,10 +157,10 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       //  break;
       case states.jump:
         this.anims.play("jump", true);
-        this.on('ANIMATION_COMPLETE', () => {
-          console.log('AnimationComplete!!!');
+        this.on("ANIMATION_COMPLETE", () => {
+          console.log("AnimationComplete!!!");
           this.actualState = states.fall;
-        })
+        });
         break;
       case states.fall:
         this.anims.play("fall", false);
