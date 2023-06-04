@@ -31,6 +31,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         this.setScale(0.25);
         this.moving = false;
         this.canMove = true;
+        this.rates=0;
         this.hitbox = {
             sizeX: 250,
             sizeY: 300,
@@ -319,11 +320,22 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
     return true;
   }
   atacar() {
-      var x = 65;
+      var x = 70;
       if (this.flipX) x = -60;
-      console.log(new Phaser.Geom.Rectangle(0,0,50,50));
-      this.scene.add.rectangle(this.x + x, this.y + 15, 60, 70, 0xff0000);
-      var coll = this.scene.add.rectangle(this.x + x, this.y + 15, 60, 70, 0xff0000);
-      // this.scene.physics.add.existing(coll);
+      var atac = new Phaser.Geom.Rectangle(this.x + x, this.y + 15, 80, 70);
+      if(this.scene.physics.config.debug) this.scene.add.rectangle(this.x + x, this.y + 15, 80, 70, 0xff0000);
+      var isAnyEnemyInRange = false;
+      for (var i = 0; i < this.scene.rates.length; i++) {
+        var enemy = this.scene.rates[i];
+        if (Phaser.Geom.Intersects.RectangleToRectangle(atac, enemy.getBounds())) {
+          isAnyEnemyInRange = true;
+          break;
+        }
+      }
+      if(isAnyEnemyInRange && this.scene.rates[i].active){
+        this.rates++;
+        this.scene.rates[i].setActive(false).setVisible(false);
+        this.scene.canviarRatesUI(this.rates);
+      }
   }
 }

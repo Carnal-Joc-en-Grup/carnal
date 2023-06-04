@@ -122,7 +122,8 @@ export default class PlatformScene extends Phaser.Scene {
           {x:2426,y:580},
           {x:2117,y:216},
           {x:1114,y:434},
-          {x:1095,y:70}
+          {x:1095,y:70},
+          {x:150,y:610},
         ];
 
         this.rates=[];
@@ -198,6 +199,9 @@ export default class PlatformScene extends Phaser.Scene {
             this.puntsUI.setText(this.score);
 
         }
+    }
+    canviarRatesUI(rates){
+      this.ratesMatades.setText(rates);
     }
 }
 
