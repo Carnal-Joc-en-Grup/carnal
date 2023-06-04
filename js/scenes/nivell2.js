@@ -12,20 +12,20 @@ function loadFont(name, url) {
 }
 
 loadFont("gatNums","../../resources/fonts/nums.ttf");
-loadFont("gatText","../../resources/fonts/Meowcat.ttf");
 
-export default class PlatformScene extends Phaser.Scene {
+export default class Nivell2 extends Phaser.Scene {
     constructor() {
-        super("PlatformScene");
+        super("Nivell2");
         this.platforms = null;
         this.player = null;
         this.cursors = null;
         this.herb = null;
         this.score = 0;
+        this.scoreText;
+        this.bombs = null;
         this.gameOver = false;
         this.canvasWidth = null;
         this.canvasHeight = null;
-        this.pause = false;
     }
     preload() {
         // Carnal.preload(this);
@@ -74,16 +74,16 @@ export default class PlatformScene extends Phaser.Scene {
         this.canvasWidth = width;
         this.canvasHeight = height;
 
-        let map_width = 1894 + this.canvasWidth;
+        let map_width = 4000 * this.canvasHeight/1045;// 2165 + this.canvasWidth;
         let map_height = this.canvasHeight;
 
         // Scene Backgorund
-        let bg = this.add.image(map_width / 2, map_height / 2, "background1");
+        let bg = this.add.image(map_width / 2, map_height / 2, "background3");
         bg.setScale(this.canvasWidth / bg.height);
         //bg.setScrollFactor(0);
         // create the Tilemap
         const map = this.make.tilemap({
-            key: "TileMap001",
+            key: "TileMap002",
         });
 
         const tilesetTuberies = map.addTilesetImage("tuberia_tileset");
@@ -109,19 +109,17 @@ export default class PlatformScene extends Phaser.Scene {
         this.player = new Carnal({
             scene: this, // Passa l'objecte a l'escena actual
             x: 100,
-            y: 610,
+            y: 200,
             texture: "carnal_idle",
         })
 
         // Posicions de les rates: per cada posició es crea una rata nova
         var posicions = [
-          {x:1035,y:580},
-          {x:1722,y:580},
-          {x:2426,y:580},
-          {x:2117,y:216},
-          {x:1114,y:434},
-          {x:1095,y:70},
-          {x:190,y:610},
+          {x:523,y:380},
+          {x:1079,y:380},
+          {x:1383,y:380},
+          {x:1829,y:380},
+          {x:2100,y:380}          
         ];
 
         this.rates=[];
@@ -154,7 +152,6 @@ export default class PlatformScene extends Phaser.Scene {
           this.physics.add.collider(this.rates[i], layerTiles);
           this.physics.add.collider(this.rates[i], layerCollision);
           this.physics.add.overlap(this.rates[i], layerCollisionRata, (a, b) => { if (b.index > -1) a.flip(); });
-          this.physics.add.overlap(this.rates[i], this.player, (a,b) => {if(a.active) b.rebreMal();});
         }
         this.physics.add.overlap(this.player, layerHerba, (a, b) => this.collectHerba(a, b));
 
@@ -187,10 +184,7 @@ export default class PlatformScene extends Phaser.Scene {
         this.map = map;
     }
     update() {
-        if (this.gameOver || this.pause) return;
-        if (this.inputKeys.pause.isDown){
-          this.pause = true;
-        }
+        if (this.gameOver) return;
         this.player.update();
         for(var i=0;i<this.rates.length;i++){this.rates[i].update();}
     }
@@ -201,13 +195,6 @@ export default class PlatformScene extends Phaser.Scene {
             this.puntsUI.setText(this.score);
 
         }
-    }
-    canviarRatesUI(rates){
-      this.ratesMatades.setText(rates);
-    }
-    canviarVidesUI(vides){
-      console.log(this.cors[vides]);
-      this.cors[vides].setActive(false).setVisible(false);
     }
 }
 

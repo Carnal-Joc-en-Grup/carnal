@@ -38,6 +38,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
             offsetX: 125,
             offsetY: 150
         }
+        this.invencible = false;
     }
     create() {
         console.log("Create Carnal");
@@ -140,7 +141,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       frameRate: 0,
     });
     this.on("animationstart", () => {
-      if (this.actualState == states.attack) this.atacar();
+      if (this.actualState == states.attack || this.actualState == states.sneakAttack) this.atacar();
     });
   }
   update() {
@@ -337,5 +338,22 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         this.scene.rates[i].setActive(false).setVisible(false);
         this.scene.canviarRatesUI(this.rates);
       }
+  }
+  rebreMal(){
+    if(this.invencible) return;
+    this.invencible = true;
+    var timeout = setTimeout(() => {this.invencible=false},1000);
+    this.hitPoints--;
+    this.scene.canviarVidesUI(this.hitPoints);
+    // GameOver
+    if(this.hitPoints == 0) {
+      this.invencible=true;
+      clearTimeout(timeout);
+      var rect = this.scene.add.rectangle(this.scene.canvasWidth/2, this.scene.canvasHeight/2, this.scene.canvasWidth, this.scene.canvasHeight, 0x000000);
+      var text = this.scene.add.text(this.scene.canvasWidth/2-180, this.scene.canvasHeight/2-75, "GAME OVER", { fontSize: "100px", fontFamily: "gatText" })
+      text.setScrollFactor(0);
+      rect.setScrollFactor(0);
+      this.scene.gameOver = true;
+    }
   }
 }

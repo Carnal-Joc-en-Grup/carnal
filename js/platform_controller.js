@@ -1,6 +1,6 @@
 import PlatformScene from "./scenes/platformgame.js";
 import Nivell3 from "./scenes/nivell3.js";
-
+import Nivell2 from "./scenes/nivell2.js";
 
 var config = {
     type: Phaser.AUTO,
