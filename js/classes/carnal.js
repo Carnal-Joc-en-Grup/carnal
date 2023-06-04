@@ -204,7 +204,6 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         this.on("animationstart", () => {
             if (this.actualState == states.attack) this.atacar();
         });
-
         this.anims.play("attack", true);
         break;
       case states.sneak: // ---------------------------------- SNEAK
@@ -223,7 +222,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         this.anims.play("sneak", true);
         break;
       case states.sneakWalk: // ------------------------------ SNEAK WALK
-        if (!this.scene.inputKeys.sneak.isDown) {
+        if (!this.scene.inputKeys.sneak.isDown && this.canGetUp()) {
           this.setState();
           break;
         }
@@ -251,7 +250,10 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         this.body.setVelocityY(-JUMP_SPEED);
         break;
       case states.fall: // ----------------------------------- FALL
-        if (this.body.onFloor()) this.setState(states.land);
+        if (this.body.onFloor()) {
+          this.setState(states.land);
+          break;
+        }
         this.anims.play("fall", true);
         break;
       case states.land: // ----------------------------------- LAND
@@ -261,6 +263,10 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         });
         break;
       case states.damage: // --------------------------------- DAMAGE
+        if (!this.scene.inputKeys.sneak.isDown && this.canGetUp()) {
+          this.setState();
+          break;
+        }
         this.anims.play("damage", true);
         break;
       case states.death: // ---------------------------------- DEATH
@@ -279,9 +285,6 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
     
     this.hitbox.offsetX = (SPRITE_SIZE - this.hitbox.sizeX) - 50;
     this.hitbox.offsetY = (SPRITE_SIZE - this.hitbox.sizeY ) - 50;
-    // console.log(this.hitbox.offsetY)
-    
-    console.log((SPRITE_SIZE - this.hitbox.sizeY)/2)
     
     this.body.setSize(this.hitbox.sizeX, this.hitbox.sizeY);
     this.body.setOffset(this.hitbox.offsetX, this.hitbox.offsetY);
