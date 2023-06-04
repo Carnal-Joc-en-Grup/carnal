@@ -18,7 +18,6 @@ export default class PlatformScene extends Phaser.Scene {
     preload() {
         // Carnal.preload(this);
         //Backgrounds
-
         this.load.image("background1", "../../resources/backgrounds/background_passadisPorta.jpg");
         this.load.image("background2", "../../resources/backgrounds/background_passadis.jpg");
         this.load.image("background3", "../../resources/backgrounds/background_ventilacio.jpg");
@@ -68,8 +67,8 @@ export default class PlatformScene extends Phaser.Scene {
         // Scene Backgorund
         let bg = this.add.image(map_width / 2, map_height / 2, "background1");
         let bg2 = this.add.image(map_width, map_height / 2, "background2");
-        bg.setScale(0.675);
-        bg2.setScale(0.675);
+        bg.setScale(this.canvasWidth/bg.height);
+        bg2.setScale(this.canvasWidth/bg.height);
         //bg.setScrollFactor(0);
         // create the Tilemap
         const map = this.make.tilemap({
