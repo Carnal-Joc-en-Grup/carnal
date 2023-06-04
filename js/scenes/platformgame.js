@@ -6,8 +6,8 @@ var config = {
   height: 728,
 };
 
-const MAP_WIDTH = 1894 + config.width;
-const MAP_HEIGHT = 728;
+let map_width = 1894 + config.width;
+let map_height = 728;
 
 export default class PlatformScene extends Phaser.Scene {
   constructor() {
@@ -20,6 +20,8 @@ export default class PlatformScene extends Phaser.Scene {
     this.scoreText;
     this.bombs = null;
     this.gameOver = false;
+    this.canvasWidth = null;
+    this.canvasHeight = null;
   }
   preload() {
     // Carnal.preload(this);
@@ -52,7 +54,7 @@ export default class PlatformScene extends Phaser.Scene {
     this.load.spritesheet("carnal_sneak", '../../resources/carnal_sprites/carnal_sneak.png', {frameWidth: 500, frameHeight: 500});
     this.load.spritesheet("carnal_sneak_attack", '../../resources/carnal_sprites/carnal_sneak_attack.png', {frameWidth: 500, frameHeight: 500});
     this.load.spritesheet("carnal_jump", '../../resources/carnal_sprites/carnal_jump.png', {frameWidth: 500, frameHeight: 500});
-    this.load.spritesheet("carnal_wait", '../../resources/carnal_sprites/carnal_wait.png', {frameWidth: 500, frameHeight: 500}); 
+    this.load.spritesheet("carnal_idle", '../../resources/carnal_sprites/carnal_wait.png', {frameWidth: 500, frameHeight: 500}); 
     this.load.image("carnal-texture", "../../resources/prueba.png");
 
     // Personatge
@@ -63,9 +65,17 @@ export default class PlatformScene extends Phaser.Scene {
   }
 
   create() {
+    // Get canvas size
+    let { width, height } = this.sys.game.canvas;
+    this.canvasWidth = width;
+    this.canvasHeight = height;
+
+    let map_width = 1894 + config.width;
+    let map_height = this.canvasHeight;
+
     // Scene Backgorund
-    let bg = this.add.image(MAP_WIDTH / 2, config.height / 2, "background1");
-    let bg2 = this.add.image(MAP_WIDTH, config.height / 2, "background2");
+    let bg = this.add.image(map_width / 2, this.canvasHeight / 2, "background1");
+    let bg2 = this.add.image(map_width, this.canvasHeight / 2, "background2");
     bg.setScale(0.675); bg2.setScale(0.675);
     //bg.setScrollFactor(0);
     // create the Tilemap
@@ -120,7 +130,7 @@ export default class PlatformScene extends Phaser.Scene {
     layerTiles.setCollisionBetween(5, 23);
     layerCollision.setCollisionBetween(11, 11);
 
-    this.cameras.main.setBounds(0, 0, MAP_WIDTH, MAP_HEIGHT); // Ajusta els límits de la càmera segons el tamany de l'escena
+    this.cameras.main.setBounds(0, 0, map_width, map_height); // Ajusta els límits de la càmera segons el tamany de l'escena
     this.cameras.main.startFollow(this.player, true, 0.5, 0.5); // Estableix a Carnal com a l'objecte a seguir amb la càmara
   }
   update() {
