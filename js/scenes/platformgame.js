@@ -56,19 +56,19 @@ export default class PlatformScene extends Phaser.Scene {
     }
 
     create() {
-      // Get canvas size
-      let { width, height } = this.sys.game.canvas;
-      this.canvasWidth = width;
-      this.canvasHeight = height;
-  
-      let map_width = 1894 + this.canvasWidth;
-      let map_height = this.canvasHeight;
+        // Get canvas size
+        let { width, height } = this.sys.game.canvas;
+        this.canvasWidth = width;
+        this.canvasHeight = height;
+
+        let map_width = 1894 + this.canvasWidth;
+        let map_height = this.canvasHeight;
 
         // Scene Backgorund
         let bg = this.add.image(map_width / 2, map_height / 2, "background1");
         let bg2 = this.add.image(map_width, map_height / 2, "background2");
-        bg.setScale(this.canvasWidth/bg.height);
-        bg2.setScale(this.canvasWidth/bg.height);
+        bg.setScale(this.canvasWidth / bg.height);
+        bg2.setScale(this.canvasWidth / bg.height);
         //bg.setScrollFactor(0);
         // create the Tilemap
         const map = this.make.tilemap({
@@ -120,7 +120,7 @@ export default class PlatformScene extends Phaser.Scene {
         this.player.changeHitbox();
         this.physics.add.collider(this.player, layerTiles);
         this.physics.add.collider(this.player, layerCollision);
-        this.physics.add.overlap(this.player, layerHerba, (a,b) => this.collectHerba(a,b));
+        this.physics.add.overlap(this.player, layerHerba, (a, b) => this.collectHerba(a, b));
 
         layerTiles.setCollisionBetween(5, 23);
         layerCollision.setCollisionBetween(11, 11);
@@ -134,16 +134,25 @@ export default class PlatformScene extends Phaser.Scene {
             this.cors[i].setScale(0.75);
             this.cors[i].setScrollFactor(0);
         }
+
+        this.herba = this.add.sprite(755, 40, 'herbaUI');
+        this.herba.setScale(0.75);
+        this.herba.setScrollFactor(0);
+        this.puntsUI = this.add.text(695, 25, "0", { fontSize: "35px"})
+        this.puntsUI.setScrollFactor(0);
+
+        this.map = map;
     }
     update() {
         if (this.gameOver) return;
         this.player.update();
     }
     collectHerba(player, herba) {
-      if(herba.index > -1){ // Si és un tile correcte
-        this.score += 10;
-        // this.scoreText.setText("Score: " + this.score);
+        if (herba.index > -1) { // Si és un tile correcte
+            this.score++;
+            this.map.removeTile(herba);
+            this.puntsUI.setText(this.score);
 
-      }
+        }
     }
 }
