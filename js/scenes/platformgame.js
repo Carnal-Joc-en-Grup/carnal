@@ -1,5 +1,6 @@
 "use strict";
 import Carnal from "../classes/carnal.js";
+import Rata from "../classes/rata.js";
 
 export default class PlatformScene extends Phaser.Scene {
     constructor() {
@@ -37,7 +38,8 @@ export default class PlatformScene extends Phaser.Scene {
 
         this.load.image("Collision", "../../resources/assets/Collision.png");
         this.load.tilemapTiledJSON("TileMap001", "../../tiled/TileMap001.json");
-        this.load.tilemapTiledJSON("TileMap003", "../../tiled/TileMap003.json");
+        // this.load.tilemapTiledJSON("TileMap002", "../../tiled/TileMap002.json");
+        // this.load.tilemapTiledJSON("TileMap003", "../../tiled/TileMap003.json");
 
         // Player
         this.load.spritesheet("carnal_walk", "../../resources/carnal_sprites/carnal_walk.png", { frameWidth: 500, frameHeight: 500 });
@@ -72,7 +74,7 @@ export default class PlatformScene extends Phaser.Scene {
         //bg.setScrollFactor(0);
         // create the Tilemap
         const map = this.make.tilemap({
-            key: "TileMap003",
+            key: "TileMap001",
         });
 
         const tilesetTuberies = map.addTilesetImage("tuberia_tileset");
@@ -83,7 +85,8 @@ export default class PlatformScene extends Phaser.Scene {
 
         const layerTiles = map.createLayer("Tiles", [tilesetTuberies, tilesetVentilacio, tilesetBox]);
         const layerHerba = map.createLayer("Tiles_herba", [tilesetHerba]);
-        const layerCollision = map.createLayer("Collisions", tilesetCollision);
+        const layerCollision = map.createLayer("Collisions", []);
+        const layerCollisionRata = map.createLayer("Collisions_rata", [tilesetCollision]);
 
 
         // He copiat es setScale(0.2) per a tots però no se si ha de ser així
@@ -91,6 +94,7 @@ export default class PlatformScene extends Phaser.Scene {
         layerTiles.setScale(0.2);
         layerHerba.setScale(0.2);
         layerCollision.setScale(0.2);
+        layerCollisionRata.setScale(0.2);
 
         //En Facu havia llevat aquest tros i no es veia es moix per això, no se perquè ha ha llevat però així funciona
         this.player = new Carnal({
@@ -99,7 +103,7 @@ export default class PlatformScene extends Phaser.Scene {
                 y: 610,
                 texture: "carnal_idle",
             })
-            //
+        this.rata = new Rata({ scene: this, x: 150, y: 600, texture: "rat_walk", frame: 0 });
 
         this.inputKeys = this.input.keyboard.addKeys({
             left: Phaser.Input.Keyboard.KeyCodes.A,
@@ -112,6 +116,7 @@ export default class PlatformScene extends Phaser.Scene {
         });
 
         this.player.create();
+        this.rata.create();
 
         // Suposo que una cosa com s'herba no hauria de tenir colisions, sinó que en tocar-la o en entrar dins sa seva àrea l'hauria d'adquirir. De moment té colisions perquè uwu
 
@@ -119,10 +124,13 @@ export default class PlatformScene extends Phaser.Scene {
         this.player.changeHitbox();
         this.physics.add.collider(this.player, layerTiles);
         this.physics.add.collider(this.player, layerCollision);
+        this.physics.add.collider(this.rata, layerCollision);
+        this.physics.add.overlap(this.rata, layerCollisionRata, (a, b) => { if (b.index > -1) a.flip(); });
         this.physics.add.overlap(this.player, layerHerba, (a, b) => this.collectHerba(a, b));
 
         layerTiles.setCollisionBetween(5, 23);
         layerCollision.setCollisionBetween(11, 11);
+        layerCollisionRata.setCollisionBetween(11, 11);
 
         this.cameras.main.setBounds(0, 0, map_width, map_height); // Ajusta els límits de la càmera segons el tamany de l'escena
         this.cameras.main.startFollow(this.player, true, 0.5, 0.5); // Estableix a Carnal com a l'objecte a seguir amb la càmara
@@ -130,21 +138,28 @@ export default class PlatformScene extends Phaser.Scene {
         this.cors = [];
         for (var i = 0; i < this.player.hitPoints; i++) {
             this.cors[i] = this.add.sprite(45 + 45 * i, 40, 'cor');
-            this.cors[i].setScale(0.75);
+            this.cors[i].setScale(0.70);
             this.cors[i].setScrollFactor(0);
         }
 
         this.herba = this.add.sprite(755, 40, 'herbaUI');
         this.herba.setScale(0.75);
         this.herba.setScrollFactor(0);
-        this.puntsUI = this.add.text(695, 25, "0", { fontSize: "35px"})
+        this.puntsUI = this.add.text(695, 25, "0", { fontSize: "35px" })
         this.puntsUI.setScrollFactor(0);
+
+        this.ratesUI = this.add.sprite(45, 100, 'rata');
+        this.ratesUI.setScale(0.65);
+        this.ratesUI.setScrollFactor(0);
+        this.ratesMatades = this.add.text(75, 85, "0", { fontSize: "35px" })
+        this.ratesMatades.setScrollFactor(0);
 
         this.map = map;
     }
     update() {
         if (this.gameOver) return;
         this.player.update();
+        this.rata.update();
     }
     collectHerba(player, herba) {
         if (herba.index > -1) { // Si és un tile correcte
