@@ -97,8 +97,7 @@ export default class PlatformScene extends Phaser.Scene {
                 scene: this, // Passa l'objecte a l'escena actual
                 x: 100,
                 y: 610,
-                texture: "carnal-texture",
-                frame: "carnal-frame",
+                texture: "carnal_idle",
             })
             //
 
