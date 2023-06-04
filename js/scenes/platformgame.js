@@ -185,12 +185,10 @@ export default class PlatformScene extends Phaser.Scene {
         this.ratesMatades.setScrollFactor(0);
 
         this.map = map;
+        this.input.keyboard.on('keydown-ESC', this.pauseJoc, this);
     }
     update() {
-        if (this.gameOver || this.pause) return;
-        if (this.inputKeys.pause.isDown){
-          this.pause = true;
-        }
+        if (this.gameOver) return;
         this.player.update();
         for(var i=0;i<this.rates.length;i++){this.rates[i].update();}
     }
@@ -208,6 +206,12 @@ export default class PlatformScene extends Phaser.Scene {
     canviarVidesUI(vides){
       console.log(this.cors[vides]);
       this.cors[vides].setActive(false).setVisible(false);
+    }
+    pauseJoc(){
+      console.log(this.pause);
+      this.pause = !this.pause;
+      if(this.pause)this.scene.pause();
+      else this.scene.resume();
     }
 }
 
