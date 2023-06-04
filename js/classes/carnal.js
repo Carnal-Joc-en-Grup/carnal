@@ -138,6 +138,9 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       }),
       frameRate: 0,
     });
+    this.on("animationstart", () => {
+      if (this.actualState == states.attack) this.atacar();
+    });
   }
   update() {
     // MOVE _____________________________________________________________________________
@@ -202,9 +205,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         this.on("animationcomplete", () => {
             this.setState();
         });
-        this.on("animationstart", () => {
-            if (this.actualState == states.attack) this.atacar();
-        });
+        
         this.anims.play("attack", true);
         break;
       case states.sneak: // ---------------------------------- SNEAK
@@ -306,6 +307,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
   atacar() {
       var x = 65;
       if (this.flipX) x = -60;
+      console.log(new Phaser.Geom.Rectangle(0,0,50,50));
       this.scene.add.rectangle(this.x + x, this.y + 15, 60, 70, 0xff0000);
       var coll = this.scene.add.rectangle(this.x + x, this.y + 15, 60, 70, 0xff0000);
       // this.scene.physics.add.existing(coll);
