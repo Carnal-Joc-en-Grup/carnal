@@ -74,7 +74,7 @@ export default class PlatformScene extends Phaser.Scene {
         //bg.setScrollFactor(0);
         // create the Tilemap
         const map = this.make.tilemap({
-            key: "TileMap003",
+            key: "TileMap001",
         });
 
         const tilesetTuberies = map.addTilesetImage("tuberia_tileset");
