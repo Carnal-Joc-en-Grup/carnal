@@ -81,13 +81,15 @@ export default class PlatformScene extends Phaser.Scene {
         const tilesetCollision = map.addTilesetImage("Collision");
         const tilesetBox = map.addTilesetImage("caixa")
 
-        const layerTiles = map.createLayer("Tiles", [tilesetTuberies, tilesetHerba, tilesetVentilacio, tilesetBox]);
+        const layerTiles = map.createLayer("Tiles", [tilesetTuberies, tilesetVentilacio, tilesetBox]);
+        const layerHerba = map.createLayer("Tiles_herba", [tilesetHerba]);
         const layerCollision = map.createLayer("Collisions", tilesetCollision);
 
 
         // He copiat es setScale(0.2) per a tots però no se si ha de ser així
 
         layerTiles.setScale(0.2);
+        layerHerba.setScale(0.2);
         layerCollision.setScale(0.2);
 
         //En Facu havia llevat aquest tros i no es veia es moix per això, no se perquè ha ha llevat però així funciona
@@ -118,6 +120,7 @@ export default class PlatformScene extends Phaser.Scene {
         this.player.changeHitbox();
         this.physics.add.collider(this.player, layerTiles);
         this.physics.add.collider(this.player, layerCollision);
+        this.physics.add.overlap(this.player, layerHerba, (a,b) => this.collectHerba(a,b));
 
         layerTiles.setCollisionBetween(5, 23);
         layerCollision.setCollisionBetween(11, 11);
@@ -126,22 +129,21 @@ export default class PlatformScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player, true, 0.5, 0.5); // Estableix a Carnal com a l'objecte a seguir amb la càmara
 
         this.cors = [];
-        for(var i=0;i<this.player.hitPoints;i++){
-          this.cors[i] = this.add.sprite(45 + 45*i, 40, 'cor');
-          this.cors[i].setScale(0.75);
-          this.cors[i].setScrollFactor(0);
+        for (var i = 0; i < this.player.hitPoints; i++) {
+            this.cors[i] = this.add.sprite(45 + 45 * i, 40, 'cor');
+            this.cors[i].setScale(0.75);
+            this.cors[i].setScrollFactor(0);
         }
     }
     update() {
         if (this.gameOver) return;
         this.player.update();
     }
-    collectHerba(player, star) {
-        star.disableBody(true, true);
+    collectHerba(player, herba) {
+      if(herba.index > -1){ // Si és un tile correcte
         this.score += 10;
-        this.scoreText.setText("Score: " + this.score);
-        if (this.herba.countActive(true) === 0) {
-            this.enableAllherba();
-        }
+        // this.scoreText.setText("Score: " + this.score);
+
+      }
     }
 }
