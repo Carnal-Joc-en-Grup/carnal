@@ -191,7 +191,8 @@ export default class PlatformScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-ESC', this.pauseJoc, this);
     }
     update() {
-        if (this.gameOver) return;
+        if (this.gameOver || this.pause) return;
+        this.pause = false;
         this.player.update();
         for(var i=0;i<this.rates.length;i++){this.rates[i].update();}
     }
@@ -210,12 +211,9 @@ export default class PlatformScene extends Phaser.Scene {
       this.cors[vides].setActive(false).setVisible(false);
     }
     pauseJoc(){
-      console.log(this.pause);
-      this.pause = !this.pause;
-      if(this.pause)this.scene.pause();
-      else this.scene.resume();
-      var rect = this.scene.add.rectangle(this.scene.canvasWidth/2, this.scene.canvasHeight/2, this.scene.canvasWidth, this.scene.canvasHeight, 0x000000);
-      var text = this.scene.add.text(this.scene.canvasWidth/2-180, this.scene.canvasHeight/2-75, "GAME OVER", { fontSize: "100px", fontFamily: "gatText" })
+      this.pause = false;
+      this.scene.launch("Pause");
+      this.scene.pause();
     }
 }
 
