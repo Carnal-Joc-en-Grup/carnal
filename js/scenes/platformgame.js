@@ -117,8 +117,12 @@ export default class PlatformScene extends Phaser.Scene {
 
         // Posicions de les rates: per cada posició es crea una rata nova
         var posicions = [
-          {x:150,y:600},
-          {x:1095,y:70},
+          {x:1035,y:580},
+          {x:1722,y:580},
+          {x:2426,y:580},
+          {x:2117,y:216},
+          {x:1114,y:434},
+          {x:1095,y:70}
         ];
 
         this.rates=[];
