@@ -17,10 +17,6 @@ const states = {
 const SPEED = 250;
 const JUMP_SPEED = 350;
 const SPRITE_SIZE = 500;
-const hitbox = {
-  sizeX:50,
-  sizeY:50,
-}
 
 export default class Carnal extends Phaser.GameObjects.Sprite {
   constructor(data, hp = 9) {
@@ -35,6 +31,12 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
     this.setScale(0.25);
     this.moving = false;
     this.canMove = true;
+    this.hitbox = {
+      sizeX:250,
+      sizeY:300,
+      offsetX:125,
+      offsetY:150
+    }
   }
   create() {
     console.log("Create Carnal");
@@ -47,7 +49,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 4,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -56,7 +58,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 3,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -65,7 +67,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 0,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -74,7 +76,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 2,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -83,7 +85,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 2,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -92,7 +94,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 3,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -101,7 +103,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 4,
         end: 4,
       }),
-      frameRate: 8,
+      frameRate: 6,
     });
     this.scene.anims.create({
       key: "land",
@@ -109,7 +111,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 5,
         end: 7,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -174,6 +176,10 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         }
         if (this.moving) {
           this.setState(states.walk);
+          break;
+        }
+        if (!this.body.onFloor()) {
+          this.setState(states.fall);
           break;
         }
         this.anims.play("idle", true);
@@ -265,18 +271,30 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
     }
   }
   changeHitbox() {
-    if (this.actualState == 5 || this.actualState == 6) {
-      // Sneak
-      this.body.setSize(300, 150, true);
-      this.body.setOffset(125, 300);
+    if (this.actualState == states.sneak || this.actualState == states.sneakAttack || this.actualState == states.sneakWalk) {
+      this.hitbox.sizeX = 250;
+      this.hitbox.sizeY = 120;
     } else {
-      this.body.setSize(300, 300, true);
-      this.body.setOffset(125, 150);
+      this.hitbox.sizeX = 250;
+      this.hitbox.sizeY = 300;
     }
+    
+    this.hitbox.offsetX = (SPRITE_SIZE - this.hitbox.sizeX)/2;
+    this.hitbox.offsetY = ((SPRITE_SIZE - this.hitbox.sizeY)/2) + 50;
+
+    console.log(this.hitbox);
+    
+    this.body.setSize(this.hitbox.sizeX, this.hitbox.sizeY);
+    this.body.setOffset(this.hitbox.offsetX, this.hitbox.offsetY);
   }
   setState(newState = states.idle) {
     this.actualState = newState;
     this.changeHitbox();
+    if (this.actualState == states.attack 
+      || this.actualState == states.sneakAttack 
+      || this.actualState == states.damage 
+      || this.actualState == states.death) this.canMove = false;
+    else this.canMove = true;
   }
   canGetUp() {
     return true;
