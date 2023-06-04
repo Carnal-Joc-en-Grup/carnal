@@ -59,6 +59,8 @@ export default class PlatformScene extends Phaser.Scene {
         this.load.spritesheet("carnal_sneak_attack", '../../resources/carnal_sprites/carnal_sneak_attack.png', { frameWidth: 500, frameHeight: 500 });
         this.load.spritesheet("carnal_jump", '../../resources/carnal_sprites/carnal_jump.png', { frameWidth: 500, frameHeight: 500 });
         this.load.spritesheet("carnal_idle", '../../resources/carnal_sprites/carnal_wait.png', { frameWidth: 500, frameHeight: 500 });
+        this.load.spritesheet("carnal_damage", '../../resources/carnal_sprites/carnal_damage.png', { frameWidth: 500, frameHeight: 500 });
+        this.load.spritesheet("carnal_death", '../../resources/carnal_sprites/carnal_death.png', { frameWidth: 500, frameHeight: 500 });
         this.load.image("carnal-texture", "../../resources/prueba.png");
 
         // Personatge
@@ -139,6 +141,7 @@ export default class PlatformScene extends Phaser.Scene {
             jump: Phaser.Input.Keyboard.KeyCodes.W,
             sneak: Phaser.Input.Keyboard.KeyCodes.S,
             posicio_carnal: Phaser.Input.Keyboard.KeyCodes.Z,
+            ferir_carnal: Phaser.Input.Keyboard.KeyCodes.F,
             pause: Phaser.Input.Keyboard.KeyCodes.ESC
         });
 
