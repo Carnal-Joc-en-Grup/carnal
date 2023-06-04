@@ -49,8 +49,8 @@ export default class PlatformScene extends Phaser.Scene {
 
         this.load.image("Collision", "../../resources/assets/Collision.png");
         this.load.tilemapTiledJSON("TileMap001", "../../tiled/TileMap001.json");
-        // this.load.tilemapTiledJSON("TileMap002", "../../tiled/TileMap002.json");
-        // this.load.tilemapTiledJSON("TileMap003", "../../tiled/TileMap003.json");
+        this.load.tilemapTiledJSON("TileMap002", "../../tiled/TileMap002.json");
+        this.load.tilemapTiledJSON("TileMap003", "../../tiled/TileMap003.json");
 
         // Player
         this.load.spritesheet("carnal_walk", "../../resources/carnal_sprites/carnal_walk.png", { frameWidth: 500, frameHeight: 500 });
