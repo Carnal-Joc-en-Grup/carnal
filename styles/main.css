@@ -11,6 +11,10 @@ input[type=number]{
 	line-height: 75px;
 }
 
+body {
+	background-image: url(../resources/backgrounds/Carnal\ Menu\ Bg.jpg);
+} 
+
 .menu-object{
 	display:block;
 	margin-left: auto;
