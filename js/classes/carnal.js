@@ -153,6 +153,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(0);
       this.moving = false;
     }
+    if (this.scene.inputKeys.posicio_carnal.isDown) console.log("x: ",this.body.x,", y: ",this.body.y);
     // STATE MACHINE ____________________________________________________________________
     switch (this.actualState) {
       case states.idle: // ----------------------------------- IDLE
@@ -307,6 +308,6 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       if (this.flipX) x = -60;
       this.scene.add.rectangle(this.x + x, this.y + 15, 60, 70, 0xff0000);
       var coll = this.scene.add.rectangle(this.x + x, this.y + 15, 60, 70, 0xff0000);
-      this.scene.physics.add.existing(coll);
+      // this.scene.physics.add.existing(coll);
   }
 }
