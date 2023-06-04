@@ -118,6 +118,11 @@ export default class Nivell3 extends Phaser.Scene {
         // Posicions de les rates: per cada posició es crea una rata nova
         var posicions = [
           {x:800,y:580},
+          {x:1079,y:362},
+          {x:1520,y:580},
+          {x:1474,y:143},
+          {x:618,y:70},
+          {x:2100,y:580},
           
         ];
 
