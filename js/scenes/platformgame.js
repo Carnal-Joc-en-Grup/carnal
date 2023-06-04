@@ -207,7 +207,6 @@ export default class PlatformScene extends Phaser.Scene {
       this.ratesMatades.setText(rates);
     }
     canviarVidesUI(vides){
-      console.log(this.cors[vides]);
       this.cors[vides].setActive(false).setVisible(false);
     }
     pauseJoc(){

@@ -272,14 +272,8 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         this.anims.play("damage", true);
         if(this.invencible) break;
         this.invencible = true;
-        var timeout = setTimeout(() => {this.invencible=false},1000);
+        var timeout = setTimeout(() => {this.invencible=false},2500);
         console.log(this.hitPoints);
-        // GameOver
-        // if(this.hitPoints == 0) {
-        //   this.invencible=true;
-        //   clearTimeout(timeout);
-          
-        // }
         var cam = this.scene.cameras.main;
         if (!this.canTakeDamage) break;
         this.canTakeDamage = false;
@@ -377,7 +371,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       }
   }
   rebreMal(){
-    this.setState(states.damage)
+    if(!this.invencible)this.setState(states.damage);
     
   }
   die() {
