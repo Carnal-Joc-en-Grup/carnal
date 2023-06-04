@@ -5,14 +5,63 @@
 		<script src="./js/loader.js"></script>
 		<script src="./js/game_info.js"></script>
 		<script src="./js/menu_controller.js"></script>
-		<title> My first game - Menu </title>
+		<title> Carnal - Menu </title>
 	</head>
 	<body>
-		<p class="menu-object" id="title">Memory menu</p>
+		<svg class="menu-object" id="logo" viewBox="0 0 170 210" width="170" height="210">
+            <path id="head" fill="black"
+              d="M 10,60
+                 L 10,130
+                 Q 10,160 40,160
+                 L 60,160
+                 L 60,190
+                 Q 60,200 70,200
+                 L 100,200
+                 Q 110,200 110,190
+                 L 110,160
+                 L 130,160
+                 Q 160,160 160,130
+                 L 160,60
+                 L 115,10
+                 L 115,60
+                 L 55,60
+                 L 55,10 
+                 M 70,60
+                 z" />
+            <path fill="white"
+				d="M 25,115
+                 a 10,5.5 45 1,0 45,0
+                 a 10,5.5 45 1,0 -45,0
+                 z"/>         
+			<path fill="yellow" opacity="0.6"
+				d="M 25,115
+				 a 10,5.5 45 1,0 45,0
+				 a 10,5.5 45 1,0 -45,0
+				 z"/>         
+            <path fill="white"
+            	d="M 100,115
+                 a 10,5.5 135 1,0 45,0
+                 a 10,5.5 135 1,0 -45,0
+                 z"/>
+			<path fill="yellow" opacity="0.6"
+				d="M 100,115
+				 a 10,5.5 135 1,0 45,0
+				 a 10,5.5 135 1,0 -45,0
+				 z"/>
+            <rect fill="black" x="45" y="70" width="10" height="80"/>
+            <rect fill="black" x="115" y="70" width="10" height="80"/>
+            <rect id="eyelid" fill="black" x="20" y="70" width="130" height="15"/>
+        </svg>
+
+		<p class="menu-object" id="title">C A R N A L</p>
+		<button class="menu-object" onclick="">CARREGAR PARTIDA</button>
 		<button class="menu-object" onclick="platform_game()"> 
-			Platform Game 
+			NOVA PARTIDA
 		</button>
+		<button class="menu-object" onclick="">SORTIR</button>
 	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+  <script src="../carnal/js/"></script>
 </html>
 
 
