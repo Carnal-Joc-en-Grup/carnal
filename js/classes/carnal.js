@@ -303,5 +303,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       var x = 65;
       if (this.flipX) x = -60;
       this.scene.add.rectangle(this.x + x, this.y + 15, 60, 70, 0xff0000);
+      var coll = this.scene.add.rectangle(this.x + x, this.y + 15, 60, 70, 0xff0000);
+      this.scene.physics.add.existing(coll);
   }
 }
