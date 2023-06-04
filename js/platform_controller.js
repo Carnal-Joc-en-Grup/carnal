@@ -4,7 +4,7 @@ import PlatformScene from "./scenes/platformgame.js";
 var config = {
     type: Phaser.AUTO,
     width: 800,
-    height: 600,
+    height: 728,
 	backgroundColor: '#bec4ed',
 	type: Phaser.AUTO,
     parent: 'game_area',
