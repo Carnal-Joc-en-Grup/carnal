@@ -126,10 +126,12 @@ export default class PlatformScene extends Phaser.Scene {
         this.physics.add.collider(this.player, layerTiles);
         this.physics.add.collider(this.player, layerCollision);
         this.physics.add.collider(this.rata, layerCollision);
+        this.physics.add.overlap(this.rata, layerCollisionRata, (a, b) => { if (b.index > -1) a.flip(); });
         this.physics.add.overlap(this.player, layerHerba, (a, b) => this.collectHerba(a, b));
 
         layerTiles.setCollisionBetween(5, 23);
         layerCollision.setCollisionBetween(11, 11);
+        layerCollisionRata.setCollisionBetween(11, 11);
 
         this.cameras.main.setBounds(0, 0, map_width, map_height); // Ajusta els límits de la càmera segons el tamany de l'escena
         this.cameras.main.startFollow(this.player, true, 0.5, 0.5); // Estableix a Carnal com a l'objecte a seguir amb la càmara
