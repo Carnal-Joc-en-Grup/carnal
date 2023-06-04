@@ -13,7 +13,7 @@ const states = {
 };
 
 const SPEED = 250;
-const JUMP_SPEED = 500;
+const JUMP_SPEED = 350;
 const SPRITE_SIZE = 500;
 
 export default class Carnal extends Phaser.GameObjects.Sprite {
