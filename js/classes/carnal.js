@@ -19,7 +19,7 @@ const JUMP_SPEED = 200;
 const SPRITE_SIZE = 500;
 
 export default class Carnal extends Phaser.GameObjects.Sprite {
-    constructor(data, hp = 9) {
+    constructor(data, hp = 3) {
         let { scene, x, y, texture, frame } = data;
         super(scene, x, y, texture, frame);
         // Variables del personatge
@@ -38,6 +38,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
             offsetX: 125,
             offsetY: 150
         }
+        this.canTakeDamage = true;
         this.invencible = false;
     }
     create() {
@@ -130,7 +131,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 0,
       }),
-      frameRate: 0,
+      frameRate: 1,
     });
     this.scene.anims.create({
       key: "death",
@@ -145,6 +146,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
     });
   }
   update() {
+    if (this.scene.inputKeys.ferir_carnal.isDown) this.setState(states.damage);
     // MOVE _____________________________________________________________________________
     if (this.scene.inputKeys.left.isDown && this.canMove) {
       this.setFlipX(true);
@@ -267,28 +269,45 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         });
         break;
       case states.damage: // --------------------------------- DAMAGE
-        this.anims.play("damage", true);this.time.addEvent({
-          delay: 1000,
+        this.anims.play("damage", true);;
+        var cam = this.scene.cameras.main;
+        if (!this.canTakeDamage) break;
+        this.canTakeDamage = false;
+        this.scene.time.addEvent({
+          delay: 500,
           callback: () =>{
-              console.log("Damaged");
               this.hitPoints--;
+              console.log("Carnal damaged. " + this.hitPoints + " hit points left");
+              if (this.hitPoints <= 0) {
+                this.setState(states.death);
+              }
+              else if (this.scene.inputKeys.sneak.isDown || !this.canGetUp()) {
+                this.canTakeDamage = true;
+                this.setState();
+              } else {
+                this.canTakeDamage = true;
+                this.setState();
+              }
           },
           loop: false
         });
-        if (this.hitPoints <= 0) {
-          this.setState(states.death);
-          break;
-        }
-        if (this.scene.inputKeys.sneak.isDown || !this.canGetUp()) {
-          this.setState();
-          break;
-        } else {
-          this.setState();
-          break;
-        }
         break;
       case states.death: // ---------------------------------- DEATH
         this.anims.play("death", true);
+        if(this.isDead) break;
+        this.isDead = true;
+        var cam = this.scene.cameras.main;
+        cam.shake(500);
+        this.scene.time.addEvent({
+            delay: 2000,
+            callback: () =>{
+                cam.fade(2000);
+            },
+            loop: false
+        });
+        cam.on(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+          loadpage("../../index.html")
+        })
         break;
     }
   }
@@ -355,5 +374,8 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       rect.setScrollFactor(0);
       this.scene.gameOver = true;
     }
+  }
+  die() {
+
   }
 }
