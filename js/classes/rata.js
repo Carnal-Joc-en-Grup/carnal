@@ -45,6 +45,7 @@ export default class Rata extends Phaser.GameObjects.Sprite {
         }
     }
     update() {
+        if(this.scene.pause) return;
         this.body.setVelocityX(this.speed);
         this.anims.play("walk_rata", true);
 
