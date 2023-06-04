@@ -354,7 +354,6 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       text.setScrollFactor(0);
       rect.setScrollFactor(0);
       this.scene.gameOver = true;
-      this.scene.pause();
     }
   }
 }
