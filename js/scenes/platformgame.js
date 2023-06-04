@@ -98,13 +98,11 @@ export default class PlatformScene extends Phaser.Scene {
 
         //En Facu havia llevat aquest tros i no es veia es moix per això, no se perquè ha ha llevat però així funciona
         this.player = new Carnal({
-            scene: this, // Passa l'objecte a l'escena actual
-            x: 100,
-            y: 610,
-            texture: "carnal-texture",
-            frame: "carnal-frame",
-        })
-
+                scene: this, // Passa l'objecte a l'escena actual
+                x: 100,
+                y: 610,
+                texture: "carnal_idle",
+            })
         this.rata = new Rata({ scene: this, x: 150, y: 600, texture: "rat_walk", frame: 0 });
 
         this.inputKeys = this.input.keyboard.addKeys({
@@ -127,10 +125,12 @@ export default class PlatformScene extends Phaser.Scene {
         this.physics.add.collider(this.player, layerTiles);
         this.physics.add.collider(this.player, layerCollision);
         this.physics.add.collider(this.rata, layerCollision);
+        this.physics.add.overlap(this.rata, layerCollisionRata, (a, b) => { if (b.index > -1) a.flip(); });
         this.physics.add.overlap(this.player, layerHerba, (a, b) => this.collectHerba(a, b));
 
         layerTiles.setCollisionBetween(5, 23);
         layerCollision.setCollisionBetween(11, 11);
+        layerCollisionRata.setCollisionBetween(11, 11);
 
         this.cameras.main.setBounds(0, 0, map_width, map_height); // Ajusta els límits de la càmera segons el tamany de l'escena
         this.cameras.main.startFollow(this.player, true, 0.5, 0.5); // Estableix a Carnal com a l'objecte a seguir amb la càmara

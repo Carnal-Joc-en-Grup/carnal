@@ -2,14 +2,16 @@
 
 const states = {
   idle: 0,
+  walk: 10,
   jump: 1,
   fall: 2,
   land: 3,
   attack: 4,
   sneak: 5,
-  sneakAttack: 6,
-  damage: 7,
-  death: 8,
+  sneakWalk: 6,
+  sneakAttack: 7,
+  damage: 8,
+  death: 9,
 };
 
 const SPEED = 250;
@@ -27,13 +29,19 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
     this.scene.add.existing(this);
     this.scene.physics.world.enable(this);
     this.setScale(0.25);
+    this.moving = false;
+    this.canMove = true;
+    this.hitbox = {
+      sizeX:250,
+      sizeY:300,
+      offsetX:125,
+      offsetY:150
+    }
   }
   create() {
     console.log("Create Carnal");
     this.scene.physics.world.enable(this);
     this.body.setBounce(0.1); // Configurar el rebot del jugador
-
-    // En Facu tenia lo que no està comentat. He afeigit tot lo que està comentat a partir d'aquí, es a dir sa resta d'estats i ses seves animacions
 
     this.scene.anims.create({
       key: "walk",
@@ -41,7 +49,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 4,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -50,16 +58,25 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 3,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
       key: "sneak",
       frames: this.scene.anims.generateFrameNumbers("carnal_sneak", {
         start: 0,
+        end: 0,
+      }),
+      frameRate: 6,
+      repeat: 0,
+    });
+    this.scene.anims.create({
+      key: "sneak_walk",
+      frames: this.scene.anims.generateFrameNumbers("carnal_sneak", {
+        start: 0,
         end: 2,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -68,7 +85,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 2,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -77,7 +94,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 0,
         end: 3,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
@@ -86,7 +103,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 4,
         end: 4,
       }),
-      frameRate: 8,
+      frameRate: 6,
     });
     this.scene.anims.create({
       key: "land",
@@ -94,12 +111,12 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         start: 5,
         end: 7,
       }),
-      frameRate: 8,
+      frameRate: 6,
       repeat: 0,
     });
     this.scene.anims.create({
       key: "idle",
-      frames: this.scene.anims.generateFrameNumbers("carnal_idle", {
+      frames: this.scene.anims.generateFrameNumbers("carnal_walk", {
         start: 0,
         end: 0,
       }),
@@ -123,67 +140,163 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
     });
   }
   update() {
-    if (this.scene.inputKeys.left.isDown) {
+    if (this.scene.inputKeys.left.isDown && this.canMove) {
       this.setFlipX(true);
       this.body.setVelocityX(-SPEED);
-    } else if (this.scene.inputKeys.right.isDown) {
+      this.moving = true;
+    } else if (this.scene.inputKeys.right.isDown && this.canMove) {
       this.setFlipX(false);
       this.body.setVelocityX(SPEED);
+      this.moving = true;
     } else {
       this.body.setVelocityX(0);
-    }
-    if (this.scene.inputKeys.jump.isDown && this.body.onFloor()) {
-      this.actualState = states.jump;
-      this.body.setVelocityY(-JUMP_SPEED);
-    } else if (this.body.onFloor()) {
-      this.actualState = states.idle;
+      this.moving = false;
     }
 
+    // if (this.scene.inputKeys.jump.isDown && this.body.onFloor()) {
+    //   this.actualState = states.jump;
+    //   this.body.setVelocityY(-JUMP_SPEED);
+    // } else if (this.body.onFloor()) {
+    //   //this.actualState = states.idle;
+    // }
+
     switch (this.actualState) {
-      case states.idle:
+      case states.idle: // ----------------------------------- IDLE
+        if (this.scene.inputKeys.jump.isDown) {
+          this.setState(states.jump);
+          break;
+        }
+        if (this.scene.inputKeys.attack.isDown) {
+          this.setState(states.attack);
+          break;
+        }
+        if (this.scene.inputKeys.sneak.isDown) {
+          this.setState(states.sneak);
+          break;
+        }
+        if (this.moving) {
+          this.setState(states.walk);
+          break;
+        }
+        if (!this.body.onFloor()) {
+          this.setState(states.fall);
+          break;
+        }
         this.anims.play("idle", true);
         break;
-      //case states.walk:
-      //  this.anims.play("walk", true);
-      //  break;
-      //case states.attack:
-      //  this.anims.play("attack", false);
-      //  break;
-      //case states.sneak:
-      //  this.anims.play("sneak", true);
-      //  break;
-      //case states.sneakAttack:
-      //  this.anims.play("sneak_attack", false);
-      //  break;
-      case states.jump:
+      case states.walk: // ----------------------------------- WALK
+        if (this.scene.inputKeys.jump.isDown) {
+          this.setState(states.jump);
+          break;
+        }
+        if (this.scene.inputKeys.attack.isDown) {
+          this.setState(states.attack);
+          break;
+        }
+        if (this.scene.inputKeys.sneak.isDown) {
+          this.setState(states.sneak);
+          break;
+        }
+        if (!this.moving) {
+          this.setState(states.idle);
+          break;
+        }
+        this.anims.play("walk", true);
+        break;
+      case states.attack: // --------------------------------- ATTACK
+        this.on("animationcomplete", () => {
+          this.setState();
+        });
+        this.anims.play("attack", true);
+        break;
+      case states.sneak: // ---------------------------------- SNEAK
+        if (!this.scene.inputKeys.sneak.isDown && this.canGetUp()) {
+          this.setState();
+          break;
+        }
+        if (this.scene.inputKeys.attack.isDown) {
+          this.setState(states.sneakAttack);
+          break;
+        }
+        if (this.moving) {
+          this.setState(states.sneakWalk);
+          break;
+        }
+        this.anims.play("sneak", true);
+        break;
+      case states.sneakWalk: // ------------------------------ SNEAK WALK
+        if (!this.scene.inputKeys.sneak.isDown && this.canGetUp()) {
+          this.setState();
+          break;
+        }
+        if (this.scene.inputKeys.attack.isDown) {
+          this.setState(states.sneakAttack);
+          break;
+        }
+        if (!this.moving) {
+          this.setState(states.sneak);
+          break;
+        }
+        this.anims.play("sneak_walk", true);
+        break;
+      case states.sneakAttack: // ---------------------------- SNEAK ATTACK
+        this.on("animationcomplete", () => {
+          this.setState(states.sneak);
+        });
+        this.anims.play("sneak_attack", true);
+        break;
+      case states.jump: // ----------------------------------- JUMP
+        this.on("animationcomplete", () => {
+          this.setState(states.fall);
+        });
         this.anims.play("jump", true);
-        this.on("ANIMATION_COMPLETE", () => {
-          console.log("AnimationComplete!!!");
-          this.actualState = states.fall;
+        this.body.setVelocityY(-JUMP_SPEED);
+        break;
+      case states.fall: // ----------------------------------- FALL
+        if (this.body.onFloor()) this.setState(states.land);
+        this.anims.play("fall", true);
+        break;
+      case states.land: // ----------------------------------- LAND
+        this.anims.play("land", true);
+        this.on("animationcomplete", () => {
+          this.setState(states.idle);
         });
         break;
-      case states.fall:
-        this.anims.play("fall", false);
+      case states.damage: // --------------------------------- DAMAGE
+        this.anims.play("damage", true);
         break;
-      //case states.land:
-      //  this.anims.play("land", false);
-      //  break;
-      //case states.damage:
-      //  this.anims.play("damage", false);
-      //  break;
-      //case states.death:
-      //  this.anims.play("death", false);
-      //  break;
+      case states.death: // ---------------------------------- DEATH
+        this.anims.play("death", true);
+        break;
     }
   }
   changeHitbox() {
-    if (this.actualState == 5 || this.actualState == 6) {
-      // Sneak
-      this.body.setSize(240, 350, true);
-      this.body.setOffset(125, 125);
+    if (this.actualState == states.sneak || this.actualState == states.sneakAttack || this.actualState == states.sneakWalk) {
+      this.hitbox.sizeX = 250;
+      this.hitbox.sizeY = 120;
     } else {
-      this.body.setSize(300, 300, true);
-      this.body.setOffset(125, 150);
+      this.hitbox.sizeX = 250;
+      this.hitbox.sizeY = 300;
     }
+    
+    this.hitbox.offsetX = (SPRITE_SIZE - this.hitbox.sizeX)/2;
+    this.hitbox.offsetY = ((SPRITE_SIZE - this.hitbox.sizeY)/2) + 50;
+
+    console.log(this.hitbox);
+    
+    this.body.setSize(this.hitbox.sizeX, this.hitbox.sizeY);
+    this.body.setOffset(this.hitbox.offsetX, this.hitbox.offsetY);
+  }
+  setState(newState = states.idle) {
+    this.actualState = newState;
+    this.changeHitbox();
+    if (this.actualState == states.attack 
+      || this.actualState == states.sneakAttack 
+      || this.actualState == states.damage 
+      || this.actualState == states.death) this.canMove = false;
+    else this.canMove = true;
+  }
+  canGetUp() {
+    return true;
   }
 }

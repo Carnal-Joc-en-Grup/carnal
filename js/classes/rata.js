@@ -12,9 +12,7 @@ const states = {
     death: 8,
 };
 
-const SPEED = 250;
-const JUMP_SPEED = 500;
-const SPRITE_SIZE = 500;
+const SPEED = 225;
 
 export default class Rata extends Phaser.GameObjects.Sprite {
     constructor(data, hp = 1) {
@@ -24,7 +22,8 @@ export default class Rata extends Phaser.GameObjects.Sprite {
         this.hitPoints = hp;
         // this.actualState = states.idle;
         this.isDead = false;
-
+        this.speed = SPEED;
+        this.dreta = true;
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.setScale(0.25);
@@ -32,7 +31,7 @@ export default class Rata extends Phaser.GameObjects.Sprite {
     create() {
         this.scene.physics.world.enable(this);
         this.body.setBounce(0.1); // Configurar el rebot del jugador
-
+        this.setFlipX(true);
         this.scene.anims.create({
             key: "walk_rata",
             frames: this.scene.anims.generateFrameNumbers("rat_walk", {
@@ -43,7 +42,13 @@ export default class Rata extends Phaser.GameObjects.Sprite {
         });
     }
     update() {
-        this.body.setVelocityX(SPEED);
+        this.body.setVelocityX(this.speed);
         this.anims.play("walk_rata", true);
+
+    }
+    flip(){
+        this.speed*=-1;
+        this.setFlipX(this.speed > 0);
+
     }
 }
