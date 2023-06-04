@@ -114,7 +114,18 @@ export default class PlatformScene extends Phaser.Scene {
             y: 610,
             texture: "carnal_idle",
         })
-        this.rata = new Rata({ scene: this, x: 150, y: 600, texture: "rat_walk", frame: 0 });
+
+        // Posicions de les rates: per cada posició es crea una rata nova
+        var posicions = [
+          {x:150,y:600},
+          {x:1095,y:70},
+        ];
+
+        this.rates=[];
+        for(var i=0;i<posicions.length;i++){
+          var rata = new Rata({ scene: this, x: posicions[i].x, y: posicions[i].y, texture: "rat_walk", frame: 0 });
+          this.rates.push(rata);
+        }
 
         this.inputKeys = this.input.keyboard.addKeys({
             left: Phaser.Input.Keyboard.KeyCodes.A,
@@ -123,11 +134,11 @@ export default class PlatformScene extends Phaser.Scene {
             interact: Phaser.Input.Keyboard.KeyCodes.Q,
             jump: Phaser.Input.Keyboard.KeyCodes.W,
             sneak: Phaser.Input.Keyboard.KeyCodes.S,
+            posicio_carnal: Phaser.Input.Keyboard.KeyCodes.Z,
             pause: Phaser.Input.Keyboard.KeyCodes.ESC
         });
 
         this.player.create();
-        this.rata.create();
 
         // Suposo que una cosa com s'herba no hauria de tenir colisions, sinó que en tocar-la o en entrar dins sa seva àrea l'hauria d'adquirir. De moment té colisions perquè uwu
 
@@ -135,8 +146,12 @@ export default class PlatformScene extends Phaser.Scene {
         this.player.changeHitbox();
         this.physics.add.collider(this.player, layerTiles);
         this.physics.add.collider(this.player, layerCollision);
-        this.physics.add.collider(this.rata, layerCollision);
-        this.physics.add.overlap(this.rata, layerCollisionRata, (a, b) => { if (b.index > -1) a.flip(); });
+        for(var i=0;i<this.rates.length;i++){
+          this.rates[i].create();
+          this.physics.add.collider(this.rates[i], layerTiles);
+          this.physics.add.collider(this.rates[i], layerCollision);
+          this.physics.add.overlap(this.rates[i], layerCollisionRata, (a, b) => { if (b.index > -1) a.flip(); });
+        }
         this.physics.add.overlap(this.player, layerHerba, (a, b) => this.collectHerba(a, b));
 
         layerTiles.setCollisionBetween(5, 23);
@@ -170,7 +185,7 @@ export default class PlatformScene extends Phaser.Scene {
     update() {
         if (this.gameOver) return;
         this.player.update();
-        this.rata.update();
+        for(var i=0;i<this.rates.length;i++){this.rates[i].update();}
     }
     collectHerba(player, herba) {
         if (herba.index > -1) { // Si és un tile correcte
