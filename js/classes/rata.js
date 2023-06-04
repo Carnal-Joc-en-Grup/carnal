@@ -32,14 +32,17 @@ export default class Rata extends Phaser.GameObjects.Sprite {
         this.scene.physics.world.enable(this);
         this.body.setBounce(0.1); // Configurar el rebot del jugador
         this.setFlipX(true);
-        this.scene.anims.create({
-            key: "walk_rata",
-            frames: this.scene.anims.generateFrameNumbers("rat_walk", {
-                start: 0,
-                end: 1,
-            }),
-            frameRate: 5,
-        });
+        if(!this.scene.anims.exists("walk_rata")){
+            this.scene.anims.create({
+                key: "walk_rata",
+                frames: this.scene.anims.generateFrameNumbers("rat_walk", {
+                    start: 0,
+                    end: 1,
+                }),
+                frameRate: 5,
+            });
+
+        }
     }
     update() {
         this.body.setVelocityX(this.speed);
