@@ -12,6 +12,7 @@ function loadFont(name, url) {
 }
 
 loadFont("gatNums","../../resources/fonts/nums.ttf");
+loadFont("gatText","../../resources/fonts/Meowcat.ttf");
 
 export default class PlatformScene extends Phaser.Scene {
     constructor() {
@@ -21,11 +22,10 @@ export default class PlatformScene extends Phaser.Scene {
         this.cursors = null;
         this.herb = null;
         this.score = 0;
-        this.scoreText;
-        this.bombs = null;
         this.gameOver = false;
         this.canvasWidth = null;
         this.canvasHeight = null;
+        this.pause = false;
     }
     preload() {
         // Carnal.preload(this);
@@ -81,9 +81,7 @@ export default class PlatformScene extends Phaser.Scene {
 
         // Scene Backgorund
         let bg = this.add.image(map_width / 2, map_height / 2, "background1");
-        let bg2 = this.add.image(map_width, map_height / 2, "background2");
         bg.setScale(this.canvasWidth / bg.height);
-        bg2.setScale(this.canvasWidth / bg.height);
         //bg.setScrollFactor(0);
         // create the Tilemap
         const map = this.make.tilemap({
@@ -124,7 +122,8 @@ export default class PlatformScene extends Phaser.Scene {
           {x:2426,y:580},
           {x:2117,y:216},
           {x:1114,y:434},
-          {x:1095,y:70}
+          {x:1095,y:70},
+          {x:190,y:610},
         ];
 
         this.rates=[];
@@ -158,6 +157,7 @@ export default class PlatformScene extends Phaser.Scene {
           this.physics.add.collider(this.rates[i], layerTiles);
           this.physics.add.collider(this.rates[i], layerCollision);
           this.physics.add.overlap(this.rates[i], layerCollisionRata, (a, b) => { if (b.index > -1) a.flip(); });
+          this.physics.add.overlap(this.rates[i], this.player, (a,b) => {if(a.active) b.rebreMal();});
         }
         this.physics.add.overlap(this.player, layerHerba, (a, b) => this.collectHerba(a, b));
 
@@ -188,6 +188,7 @@ export default class PlatformScene extends Phaser.Scene {
         this.ratesMatades.setScrollFactor(0);
 
         this.map = map;
+        this.input.keyboard.on('keydown-ESC', this.pauseJoc, this);
     }
     update() {
         if (this.gameOver) return;
@@ -201,6 +202,19 @@ export default class PlatformScene extends Phaser.Scene {
             this.puntsUI.setText(this.score);
 
         }
+    }
+    canviarRatesUI(rates){
+      this.ratesMatades.setText(rates);
+    }
+    canviarVidesUI(vides){
+      console.log(this.cors[vides]);
+      this.cors[vides].setActive(false).setVisible(false);
+    }
+    pauseJoc(){
+      console.log(this.pause);
+      this.pause = !this.pause;
+      if(this.pause)this.scene.pause();
+      else this.scene.resume();
     }
 }
 

@@ -13,9 +13,9 @@ function loadFont(name, url) {
 
 loadFont("gatNums","../../resources/fonts/nums.ttf");
 
-export default class Nivell3 extends Phaser.Scene {
+export default class Nivell2 extends Phaser.Scene {
     constructor() {
-        super("Nivell3");
+        super("Nivell2");
         this.platforms = null;
         this.player = null;
         this.cursors = null;
@@ -74,18 +74,16 @@ export default class Nivell3 extends Phaser.Scene {
         this.canvasWidth = width;
         this.canvasHeight = height;
 
-        let map_width = 1894 + this.canvasWidth;
+        let map_width = 4000 * this.canvasHeight/1045;// 2165 + this.canvasWidth;
         let map_height = this.canvasHeight;
 
         // Scene Backgorund
-        let bg = this.add.image(map_width / 2, map_height / 2, "background4");
-        let bg2 = this.add.image(map_width, map_height / 2, "background2");
+        let bg = this.add.image(map_width / 2, map_height / 2, "background3");
         bg.setScale(this.canvasWidth / bg.height);
-        bg2.setScale(this.canvasWidth / bg.height);
         //bg.setScrollFactor(0);
         // create the Tilemap
         const map = this.make.tilemap({
-            key: "TileMap003",
+            key: "TileMap002",
         });
 
         const tilesetTuberies = map.addTilesetImage("tuberia_tileset");
@@ -111,19 +109,17 @@ export default class Nivell3 extends Phaser.Scene {
         this.player = new Carnal({
             scene: this, // Passa l'objecte a l'escena actual
             x: 100,
-            y: 610,
+            y: 200,
             texture: "carnal_idle",
         })
 
         // Posicions de les rates: per cada posició es crea una rata nova
         var posicions = [
-          {x:800,y:580},
-          {x:1079,y:362},
-          {x:1520,y:580},
-          {x:1474,y:143},
-          {x:618,y:70},
-          {x:2100,y:580},
-          
+          {x:523,y:380},
+          {x:1079,y:380},
+          {x:1383,y:380},
+          {x:1829,y:380},
+          {x:2100,y:380}          
         ];
 
         this.rates=[];
