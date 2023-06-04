@@ -79,12 +79,13 @@ export default class PlatformScene extends Phaser.Scene {
         const tilesetTuberies = map.addTilesetImage("tuberia_tileset");
         const tilesetHerba = map.addTilesetImage("herba");
         const tilesetVentilacio = map.addTilesetImage("entrada_ventilacio");
-        // const tilesetCollision = map.addTilesetImage("Collision");
+        const tilesetCollision = map.addTilesetImage("Collision");
         const tilesetBox = map.addTilesetImage("caixa")
 
         const layerTiles = map.createLayer("Tiles", [tilesetTuberies, tilesetVentilacio, tilesetBox]);
         const layerHerba = map.createLayer("Tiles_herba", [tilesetHerba]);
         const layerCollision = map.createLayer("Collisions", []);
+        const layerCollisionRata = map.createLayer("Collisions_rata", [tilesetCollision]);
 
 
         // He copiat es setScale(0.2) per a tots però no se si ha de ser així
@@ -92,6 +93,7 @@ export default class PlatformScene extends Phaser.Scene {
         layerTiles.setScale(0.2);
         layerHerba.setScale(0.2);
         layerCollision.setScale(0.2);
+        layerCollisionRata.setScale(0.2);
 
         //En Facu havia llevat aquest tros i no es veia es moix per això, no se perquè ha ha llevat però així funciona
         this.player = new Carnal({
@@ -135,7 +137,7 @@ export default class PlatformScene extends Phaser.Scene {
         this.cors = [];
         for (var i = 0; i < this.player.hitPoints; i++) {
             this.cors[i] = this.add.sprite(45 + 45 * i, 40, 'cor');
-            this.cors[i].setScale(0.75);
+            this.cors[i].setScale(0.70);
             this.cors[i].setScrollFactor(0);
         }
 
@@ -144,6 +146,12 @@ export default class PlatformScene extends Phaser.Scene {
         this.herba.setScrollFactor(0);
         this.puntsUI = this.add.text(695, 25, "0", { fontSize: "35px" })
         this.puntsUI.setScrollFactor(0);
+
+        this.ratesUI = this.add.sprite(45, 100, 'rata');
+        this.ratesUI.setScale(0.65);
+        this.ratesUI.setScrollFactor(0);
+        this.ratesMatades = this.add.text(75, 85, "0", { fontSize: "35px" })
+        this.ratesMatades.setScrollFactor(0);
 
         this.map = map;
     }
