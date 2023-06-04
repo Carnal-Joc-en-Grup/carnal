@@ -7,8 +7,9 @@ input[type=number]{
 }
 
 #title{
-	font-size: 26px;
+	font-size: 50px;
 	line-height: 75px;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif, sans-serif;
 }
 
 body {
@@ -23,10 +24,15 @@ body {
 	height: 75px;
 	font-size: 16px;
 	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 p{
 	text-align: center;
+}
+
+button.menu-object {
+	height: 75px;
 }
 
 button.menu-object:active{
@@ -38,6 +44,30 @@ button.menu-object:active{
 button.menu-object:hover:not(:active){
 	font-size: 22px;
 	width: 325px;
-	height: 85px;
 }
 
+svg.menu-object {
+	height: 300px;
+}
+svg {
+	align-self: center;
+	padding-top: 60px;
+}
+
+svg:hover #eyelid {
+	animation: eyelid-animation 2s infinite;
+	transition: height 0.5s ease;
+}
+
+#eyelid {
+	height: 15px;
+}
+
+@keyframes eyelid-animation {
+	0%, 100% {
+	  height: 15px;
+	}
+	50% {
+	  height: 80px;
+	}
+}
