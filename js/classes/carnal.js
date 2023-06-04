@@ -244,6 +244,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
           this.setState(states.fall);
         });
         this.anims.play("jump", true);
+        this.body.setVelocityY(-JUMP_SPEED);
         break;
       case states.fall: // ----------------------------------- FALL
         if (this.body.onFloor()) this.setState(states.land);
