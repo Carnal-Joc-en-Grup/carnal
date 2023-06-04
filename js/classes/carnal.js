@@ -277,8 +277,8 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       this.hitbox.sizeY = 300;
     }
     
-    this.hitbox.offsetX = (SPRITE_SIZE - this.hitbox.sizeX)/2;
-    this.hitbox.offsetY = (SPRITE_SIZE - this.hitbox.sizeY )/2;
+    this.hitbox.offsetX = (SPRITE_SIZE - this.hitbox.sizeX) - 50;
+    this.hitbox.offsetY = (SPRITE_SIZE - this.hitbox.sizeY ) - 50;
     // console.log(this.hitbox.offsetY)
     
     console.log((SPRITE_SIZE - this.hitbox.sizeY)/2)
