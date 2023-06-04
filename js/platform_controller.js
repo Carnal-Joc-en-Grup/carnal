@@ -1,4 +1,5 @@
 import PlatformScene from "./scenes/platformgame.js";
+import Nivell3 from "./scenes/nivell3.js";
 
 
 var config = {
