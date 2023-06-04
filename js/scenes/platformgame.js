@@ -2,6 +2,17 @@
 import Carnal from "../classes/carnal.js";
 import Rata from "../classes/rata.js";
 
+function loadFont(name, url) {
+  var newFont = new FontFace(name, `url(${url})`);
+  newFont.load().then(function(loaded) {
+      document.fonts.add(loaded);
+  }).catch(function(error) {
+      return error;
+  });
+}
+
+loadFont("gatNums","../../resources/fonts/nums.ttf");
+
 export default class PlatformScene extends Phaser.Scene {
     constructor() {
         super("PlatformScene");
@@ -98,11 +109,11 @@ export default class PlatformScene extends Phaser.Scene {
 
         //En Facu havia llevat aquest tros i no es veia es moix per això, no se perquè ha ha llevat però així funciona
         this.player = new Carnal({
-                scene: this, // Passa l'objecte a l'escena actual
-                x: 100,
-                y: 610,
-                texture: "carnal_idle",
-            })
+            scene: this, // Passa l'objecte a l'escena actual
+            x: 100,
+            y: 610,
+            texture: "carnal_idle",
+        })
         this.rata = new Rata({ scene: this, x: 150, y: 600, texture: "rat_walk", frame: 0 });
 
         this.inputKeys = this.input.keyboard.addKeys({
@@ -137,21 +148,21 @@ export default class PlatformScene extends Phaser.Scene {
 
         this.cors = [];
         for (var i = 0; i < this.player.hitPoints; i++) {
-            this.cors[i] = this.add.sprite(45 + 45 * i, 40, 'cor');
-            this.cors[i].setScale(0.70);
+            this.cors[i] = this.add.sprite(45 + 35 * i, 40, 'cor');
+            this.cors[i].setScale(0.60);
             this.cors[i].setScrollFactor(0);
         }
 
         this.herba = this.add.sprite(755, 40, 'herbaUI');
         this.herba.setScale(0.75);
         this.herba.setScrollFactor(0);
-        this.puntsUI = this.add.text(695, 25, "0", { fontSize: "35px" })
+        this.puntsUI = this.add.text(692, 10, "0", { fontSize: "50px", fontFamily: "gatNums" })
         this.puntsUI.setScrollFactor(0);
 
         this.ratesUI = this.add.sprite(45, 100, 'rata');
         this.ratesUI.setScale(0.65);
         this.ratesUI.setScrollFactor(0);
-        this.ratesMatades = this.add.text(75, 85, "0", { fontSize: "35px" })
+        this.ratesMatades = this.add.text(85, 70, "0", { fontSize: "50px", fontFamily: "gatNums" })
         this.ratesMatades.setScrollFactor(0);
 
         this.map = map;
@@ -170,3 +181,4 @@ export default class PlatformScene extends Phaser.Scene {
         }
     }
 }
+

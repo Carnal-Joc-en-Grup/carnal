@@ -15,7 +15,7 @@ const states = {
 };
 
 const SPEED = 250;
-const JUMP_SPEED = 350;
+const JUMP_SPEED = 200;
 const SPRITE_SIZE = 500;
 const hitbox = {
   sizeX:50,
@@ -201,6 +201,10 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         this.on("animationcomplete", () => {
           this.setState();
         });
+        this.on("animationstart", () => {
+          if(this.actualState == states.attack)this.atacar();
+        });
+        
         this.anims.play("attack", true);
         break;
       case states.sneak: // ---------------------------------- SNEAK
@@ -267,8 +271,8 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
   changeHitbox() {
     if (this.actualState == 5 || this.actualState == 6) {
       // Sneak
-      this.body.setSize(300, 150, true);
-      this.body.setOffset(125, 300);
+      this.body.setSize(300, 130, true);
+      this.body.setOffset(125, 320);
     } else {
       this.body.setSize(300, 300, true);
       this.body.setOffset(125, 150);
@@ -280,5 +284,10 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
   }
   canGetUp() {
     return true;
+  }
+  atacar(){
+    var x = 65;
+    if(this.flipX) x = -60;
+    this.scene.add.rectangle(this.x+x,this.y+15,60,70,0xff0000);
   }
 }
