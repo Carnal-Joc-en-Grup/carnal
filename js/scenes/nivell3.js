@@ -13,9 +13,9 @@ function loadFont(name, url) {
 
 loadFont("gatNums","../../resources/fonts/nums.ttf");
 
-export default class PlatformScene extends Phaser.Scene {
+export default class Nivell3 extends Phaser.Scene {
     constructor() {
-        super("PlatformScene");
+        super("Nivell3");
         this.platforms = null;
         this.player = null;
         this.cursors = null;
@@ -78,14 +78,14 @@ export default class PlatformScene extends Phaser.Scene {
         let map_height = this.canvasHeight;
 
         // Scene Backgorund
-        let bg = this.add.image(map_width / 2, map_height / 2, "background1");
+        let bg = this.add.image(map_width / 2, map_height / 2, "background4");
         let bg2 = this.add.image(map_width, map_height / 2, "background2");
         bg.setScale(this.canvasWidth / bg.height);
         bg2.setScale(this.canvasWidth / bg.height);
         //bg.setScrollFactor(0);
         // create the Tilemap
         const map = this.make.tilemap({
-            key: "TileMap001",
+            key: "TileMap003",
         });
 
         const tilesetTuberies = map.addTilesetImage("tuberia_tileset");
@@ -117,13 +117,13 @@ export default class PlatformScene extends Phaser.Scene {
 
         // Posicions de les rates: per cada posició es crea una rata nova
         var posicions = [
-          {x:1035,y:580},
-          {x:1722,y:580},
-          {x:2426,y:580},
-          {x:2117,y:216},
-          {x:1114,y:434},
-          {x:1095,y:70},
-          {x:150,y:610},
+          {x:800,y:580},
+          {x:1079,y:362},
+          {x:1520,y:580},
+          {x:1474,y:143},
+          {x:618,y:70},
+          {x:2100,y:580},
+          
         ];
 
         this.rates=[];
@@ -199,9 +199,6 @@ export default class PlatformScene extends Phaser.Scene {
             this.puntsUI.setText(this.score);
 
         }
-    }
-    canviarRatesUI(rates){
-      this.ratesMatades.setText(rates);
     }
 }
 
