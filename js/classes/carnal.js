@@ -8,10 +8,12 @@ const states = {
   attack: 4,
   sneak: 5,
   sneakAttack: 6,
+  damage: 7,
+  death: 8
 };
 
 const SPEED = 250;
-const JUMP_SPEED = 300;
+const JUMP_SPEED = 500;
 const SPRITE_SIZE = 500;
 
 export default class Carnal extends Phaser.GameObjects.Sprite {
@@ -31,8 +33,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this);
     this.body.setBounce(0.1); // Configurar el rebot del jugador
 
-    // En Facu tenia lo que no està comentat i s'ha pirat a dormir quan es moix no se pot veure per lo que no tenc ni puta idea de si res funciona
-    // No se que ha tocat, perquè abans si que se podia veure. Jo he afeigit tot lo que està comentat a partir d'aquí, es a dir sa resta d'estats i ses seves animacions
+    // En Facu tenia lo que no està comentat. He afeigit tot lo que està comentat a partir d'aquí, es a dir sa resta d'estats i ses seves animacions
 
     //this.scene.anims.create({
     //  key: "walk",
@@ -104,6 +105,22 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       }),
       frameRate: 0,
     });
+    //this.scene.anims.create({
+    //  key: "damage",
+    //  frames: this.scene.anims.generateFrameNumbers("carnal_damage", {
+    //    start: 0,
+    //    end: 0,
+    //  }),
+    //  frameRate: 0,
+    //});
+    //this.scene.anims.create({
+    //  key: "death",
+    //  frames: this.scene.anims.generateFrameNumbers("carnal_death", {
+    //    start: 0,
+    //    end: 0,
+    //  }),
+    //  frameRate: 0,
+    //});
   }
   update() {
     if (this.scene.inputKeys.left.isDown) {
@@ -150,6 +167,12 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         break;
       //case states.land:
       //  this.anims.play("land", false);
+      //  break;
+      //case states.damage:
+      //  this.anims.play("damage", false);
+      //  break;
+      //case states.death:
+      //  this.anims.play("death", false);
       //  break;
     }
   }

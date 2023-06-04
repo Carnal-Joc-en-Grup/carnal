@@ -11,6 +11,6 @@
   <image width="4000" height="1080" source="../resources/backgrounds/background_pati.jpg"/>
  </tile>
  <tile id="3">
-  <image width="391" height="341" source="../resources/carnal_states/go right/carnal_walk001.png"/>
+  <image source="../resources/carnal_states/go right/carnal_walk001.png"/>
  </tile>
 </tileset>
