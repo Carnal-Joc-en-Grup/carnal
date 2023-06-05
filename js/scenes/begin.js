@@ -1,6 +1,4 @@
 "use strict";
-//const URL = "../"
-const URL = ""
 
 function loadFont(name, url) {
   var newFont = new FontFace(name, `url(${url})`);
@@ -14,8 +12,8 @@ function loadFont(name, url) {
     });
 }
 
-loadFont("gatNums", URL + "../resources/fonts/nums.ttf");
-loadFont("gatText", URL + "../resources/fonts/Meowcat.ttf");
+loadFont("gatNums", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/fonts/nums.ttf");
+loadFont("gatText", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/fonts/Meowcat.ttf");
 
 export default class Begin extends Phaser.Scene {
   constructor() {
@@ -41,18 +39,18 @@ export default class Begin extends Phaser.Scene {
     //Backgrounds
     this.load.image(
       "backgroundB",
-      URL + "../resources/backgrounds/BackgroundB.png"
+      URL + "https://carnal-joc-en-grup.github.io/carnal/resources/backgrounds/BackgroundB.png"
     );
-    this.load.image("carnal-fullArt", URL + "../resources/carnal_fullArt.png");
-    this.load.image("paloma-fullArt", URL + "../resources/paloma_fullArt.png");
+    this.load.image("carnal-fullArt", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/carnal_fullArt.png");
+    this.load.image("paloma-fullArt", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/paloma_fullArt.png");
     // Dialegs
     this.load.image(
       "carnal-dialeg",
-      URL + "../resources/Dialeg/carnal_dialeg.png"
+      URL + "https://carnal-joc-en-grup.github.io/carnal/resources/Dialeg/carnal_dialeg.png"
     );
     this.load.image(
       "paloma-dialeg",
-      URL + "../resources/Dialeg/paloma_dialeg.png"
+      URL + "https://carnal-joc-en-grup.github.io/carnal/resources/Dialeg/paloma_dialeg.png"
     );
   }
 
@@ -97,9 +95,9 @@ export default class Begin extends Phaser.Scene {
     this.canSkip = false;
     this.dialegs = [
         ["Ets la Paloma tu no? M'han dit que tu hem pots ajudar a escapar d'aquí.", "carnal"],
-        ["Escapar? De presó? Difícil. Però t'han informat bé. L'única cosa és... que té un preu.", "paloma"],
+        ["Escapar? De presó? Difícil. Però t'han informat bé. L'única cosa éshttps://carnal-joc-en-grup.github.io/carnal. que té un preu.", "paloma"],
         ["Un preu? Quin?", "carnal"],
-        ["Sí, veuràs... últimament una gran plaga de rates ha envaït la presó. Jo ja estic vella i no soc el que era.", "paloma"],
+        ["Sí, veuràshttps://carnal-joc-en-grup.github.io/carnal. últimament una gran plaga de rates ha envaït la presó. Jo ja estic vella i no soc el que era.", "paloma"],
         ["La questió es que la millor de les herbes gateres creix per aquestes àrees infestades. Si vols la llibertat ja et fas una idea del que vull. Ni hi pensis en tornar amb les mans buides.", "paloma"],
         ["Està bé. Però assegura't que compleixes la teva part.", "carnal"],
         ["Si compleixes la teva, jo compliré la meva. Sense excuses. Miaau.", "paloma"]

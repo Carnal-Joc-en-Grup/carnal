@@ -1,7 +1,7 @@
 "use strict";
 
-//const URL = "../"
-const URL = ""
+import Carnal from "https://carnal-joc-en-grup.github.io/carnal/js/classes/carnal.js";
+import Rata from "https://carnal-joc-en-grup.github.io/carnal/js/classes/rata.js";
 
 import Carnal from "./js/classes/carnal.js";
 import Rata from "./js/classes/rata.js";
@@ -16,8 +16,8 @@ function loadFont(name, url) {
   });
 }
 
-loadFont("gatNums", URL + "../resources/fonts/nums.ttf");
-loadFont("gatText", URL + "../resources/fonts/Meowcat.ttf");
+loadFont("gatNums", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/fonts/nums.ttf");
+loadFont("gatText", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/fonts/Meowcat.ttf");
 
 export default class Nivell2 extends Phaser.Scene {
     constructor() {
@@ -37,44 +37,44 @@ export default class Nivell2 extends Phaser.Scene {
         if(!this.game.textures.get("background1")){
             // Carnal.preload(this);
             //Backgrounds
-            this.load.image("background1",  URL + "../resources/backgrounds/background_passadisPorta.jpg");
-            this.load.image("background2",  URL + "../resources/backgrounds/background_passadis.jpg");
-            this.load.image("background3",  URL + "../resources/backgrounds/background_ventilacio.jpg");
-            this.load.image("background4",  URL + "../resources/backgrounds/background_pati.jpg");
+            this.load.image("background1",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/backgrounds/background_passadisPorta.jpg");
+            this.load.image("background2",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/backgrounds/background_passadis.jpg");
+            this.load.image("background3",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/backgrounds/background_ventilacio.jpg");
+            this.load.image("background4",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/backgrounds/background_pati.jpg");
     
             // Props
-            this.load.image("entrada_ventilacio",  URL + "../resources/props/entrada_tileset.png");
-            this.load.image("tuberia_tileset",  URL + "../resources/props/tuberia_tileset.png");
-            this.load.image("herba",  URL + "../resources/props/herba_tileset.png");
-            this.load.image("caixa",  URL + "../resources/props/box_tileset.png");
+            this.load.image("entrada_ventilacio",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/props/entrada_tileset.png");
+            this.load.image("tuberia_tileset",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/props/tuberia_tileset.png");
+            this.load.image("herba",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/props/herba_tileset.png");
+            this.load.image("caixa",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/props/box_tileset.png");
     
             // Icones
-            this.load.image("cor", "../resources/icones/cor.png");
-            this.load.image("rata", "../resources/icones/rata.png");
-            this.load.image("herbaUI", "../resources/icones/herba.png");
+            this.load.image("cor", "https://carnal-joc-en-grup.github.io/carnal/resources/icones/cor.png");
+            this.load.image("rata", "https://carnal-joc-en-grup.github.io/carnal/resources/icones/rata.png");
+            this.load.image("herbaUI", "https://carnal-joc-en-grup.github.io/carnal/resources/icones/herba.png");
     
     
-            this.load.image("Collision",  URL + "../resources/assets/Collision.png");
-            this.load.tilemapTiledJSON("TileMap001",  URL + "../tiled/TileMap001.json");
-            this.load.tilemapTiledJSON("TileMap002",  URL + "../tiled/TileMap002.json");
-            this.load.tilemapTiledJSON("TileMap003",  URL + "../tiled/TileMap003.json");
+            this.load.image("Collision",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/assets/Collision.png");
+            this.load.tilemapTiledJSON("TileMap001",  URL + "https://carnal-joc-en-grup.github.io/carnal/tiled/TileMap001.json");
+            this.load.tilemapTiledJSON("TileMap002",  URL + "https://carnal-joc-en-grup.github.io/carnal/tiled/TileMap002.json");
+            this.load.tilemapTiledJSON("TileMap003",  URL + "https://carnal-joc-en-grup.github.io/carnal/tiled/TileMap003.json");
     
             // Player
-            this.load.spritesheet("carnal_walk",  URL + "../resources/carnal_sprites/carnal_walk.png", { frameWidth: 500, frameHeight: 500 });
-            this.load.spritesheet("carnal_attack",  URL + '../resources/carnal_sprites/carnal_attack.png', { frameWidth: 500, frameHeight: 500 });
-            this.load.spritesheet("carnal_sneak",  URL + '../resources/carnal_sprites/carnal_sneak.png', { frameWidth: 500, frameHeight: 500 });
-            this.load.spritesheet("carnal_sneak_attack",  URL + '../resources/carnal_sprites/carnal_sneak_attack.png', { frameWidth: 500, frameHeight: 500 });
-            this.load.spritesheet("carnal_jump",  URL + '../resources/carnal_sprites/carnal_jump.png', { frameWidth: 500, frameHeight: 500 });
-            this.load.spritesheet("carnal_idle",  URL + '../resources/carnal_sprites/carnal_wait.png', { frameWidth: 500, frameHeight: 500 });
-            this.load.spritesheet("carnal_damage",  URL + '../resources/carnal_sprites/carnal_damage.png', { frameWidth: 500, frameHeight: 500 });
-            this.load.spritesheet("carnal_death",  URL + '../resources/carnal_sprites/carnal_death.png', { frameWidth: 500, frameHeight: 500 });
-            this.load.image("carnal-texture",  URL + "../resources/prueba.png");
+            this.load.spritesheet("carnal_walk",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/carnal_sprites/carnal_walk.png", { frameWidth: 500, frameHeight: 500 });
+            this.load.spritesheet("carnal_attack",  URL + 'https://carnal-joc-en-grup.github.io/carnal/resources/carnal_sprites/carnal_attack.png', { frameWidth: 500, frameHeight: 500 });
+            this.load.spritesheet("carnal_sneak",  URL + 'https://carnal-joc-en-grup.github.io/carnal/resources/carnal_sprites/carnal_sneak.png', { frameWidth: 500, frameHeight: 500 });
+            this.load.spritesheet("carnal_sneak_attack",  URL + 'https://carnal-joc-en-grup.github.io/carnal/resources/carnal_sprites/carnal_sneak_attack.png', { frameWidth: 500, frameHeight: 500 });
+            this.load.spritesheet("carnal_jump",  URL + 'https://carnal-joc-en-grup.github.io/carnal/resources/carnal_sprites/carnal_jump.png', { frameWidth: 500, frameHeight: 500 });
+            this.load.spritesheet("carnal_idle",  URL + 'https://carnal-joc-en-grup.github.io/carnal/resources/carnal_sprites/carnal_wait.png', { frameWidth: 500, frameHeight: 500 });
+            this.load.spritesheet("carnal_damage",  URL + 'https://carnal-joc-en-grup.github.io/carnal/resources/carnal_sprites/carnal_damage.png', { frameWidth: 500, frameHeight: 500 });
+            this.load.spritesheet("carnal_death",  URL + 'https://carnal-joc-en-grup.github.io/carnal/resources/carnal_sprites/carnal_death.png', { frameWidth: 500, frameHeight: 500 });
+            this.load.image("carnal-texture",  URL + "https://carnal-joc-en-grup.github.io/carnal/resources/prueba.png");
     
             // Personatge
-            this.load.spritesheet("paloma_idle",  URL + '../resources/paloma_sprites/paloma_idle.png', { frameWidth: 500, frameHeight: 500 });
+            this.load.spritesheet("paloma_idle",  URL + 'https://carnal-joc-en-grup.github.io/carnal/resources/paloma_sprites/paloma_idle.png', { frameWidth: 500, frameHeight: 500 });
     
             // Enemics
-            this.load.spritesheet("rat_walk",  URL + '../resources/rats_sprites/rat_walk.png', { frameWidth: 343, frameHeight: 142 });
+            this.load.spritesheet("rat_walk",  URL + 'https://carnal-joc-en-grup.github.io/carnal/resources/rats_sprites/rat_walk.png', { frameWidth: 343, frameHeight: 142 });
         }
     }
 

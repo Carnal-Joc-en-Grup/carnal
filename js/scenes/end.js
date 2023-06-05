@@ -1,8 +1,5 @@
 "use strict";
 
-//const URL = "../"
-const URL = ""
-
 function loadFont(name, url) {
   var newFont = new FontFace(name, `url(${url})`);
   newFont
@@ -15,8 +12,8 @@ function loadFont(name, url) {
     });
 }
 
-loadFont("gatNums", URL + "../resources/fonts/nums.ttf");
-loadFont("gatText", URL + "../resources/fonts/Meowcat.ttf");
+loadFont("gatNums", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/fonts/nums.ttf");
+loadFont("gatText", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/fonts/Meowcat.ttf");
 
 export default class End extends Phaser.Scene {
   constructor() {
@@ -42,18 +39,18 @@ export default class End extends Phaser.Scene {
     //Backgrounds
     this.load.image(
       "background1",
-      URL + "../resources/backgrounds/BackgroundB.png"
+      URL + "https://carnal-joc-en-grup.github.io/carnal/resources/backgrounds/BackgroundB.png"
     );
-    this.load.image("carnal-fullArt", URL + "../resources/carnal_fullArt.png");
-    this.load.image("paloma-fullArt", URL + "../resources/paloma_fullArt.png");
+    this.load.image("carnal-fullArt", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/carnal_fullArt.png");
+    this.load.image("paloma-fullArt", URL + "https://carnal-joc-en-grup.github.io/carnal/resources/paloma_fullArt.png");
     // Dialegs
     this.load.image(
       "carnal-dialeg",
-      URL + "../resources/Dialeg/carnal_dialeg.png"
+      URL + "https://carnal-joc-en-grup.github.io/carnal/resources/Dialeg/carnal_dialeg.png"
     );
     this.load.image(
       "paloma-dialeg",
-      URL + "../resources/Dialeg/paloma_dialeg.png"
+      URL + "https://carnal-joc-en-grup.github.io/carnal/resources/Dialeg/paloma_dialeg.png"
     );
   }
 
@@ -147,7 +144,7 @@ export default class End extends Phaser.Scene {
               this.text.setScrollFactor(0);
               rect.setScrollFactor(0);
               this.gameOver = true;
-              setTimeout(() => {loadpage(URL + "../index.html")}, 4000);
+              setTimeout(() => {loadpage(URL + "https://carnal-joc-en-grup.github.io/carnal/index.html")}, 4000);
             })
             });
         }
