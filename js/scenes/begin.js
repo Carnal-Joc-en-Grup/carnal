@@ -95,9 +95,9 @@ export default class Begin extends Phaser.Scene {
     this.canSkip = false;
     this.dialegs = [
         ["Ets la Paloma tu no? M'han dit que tu hem pots ajudar a escapar d'aquí.", "carnal"],
-        ["Escapar? De presó? Difícil. Però t'han informat bé. L'única cosa éshttps://carnal-joc-en-grup.github.io/carnal. que té un preu.", "paloma"],
+        ["Escapar? De presó? Difícil. Però t'han informat bé. L'única cosa és que té un preu.", "paloma"],
         ["Un preu? Quin?", "carnal"],
-        ["Sí, veuràshttps://carnal-joc-en-grup.github.io/carnal. últimament una gran plaga de rates ha envaït la presó. Jo ja estic vella i no soc el que era.", "paloma"],
+        ["Sí, veuràs últimament una gran plaga de rates ha envaït la presó. Jo ja estic vella i no soc el que era.", "paloma"],
         ["La questió es que la millor de les herbes gateres creix per aquestes àrees infestades. Si vols la llibertat ja et fas una idea del que vull. Ni hi pensis en tornar amb les mans buides.", "paloma"],
         ["Està bé. Però assegura't que compleixes la teva part.", "carnal"],
         ["Si compleixes la teva, jo compliré la meva. Sense excuses. Miaau.", "paloma"]
