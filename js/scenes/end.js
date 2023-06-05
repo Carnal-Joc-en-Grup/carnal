@@ -15,7 +15,7 @@ function loadFont(name, url) {
 loadFont("gatNums", "../../resources/fonts/nums.ttf");
 loadFont("gatText", "../../resources/fonts/Meowcat.ttf");
 
-export default class Begin extends Phaser.Scene {
+export default class End extends Phaser.Scene {
   constructor() {
     super("PlatformScene");
     this.platforms = null;
@@ -38,7 +38,7 @@ export default class Begin extends Phaser.Scene {
     // Carnal.preload(this);
     //Backgrounds
     this.load.image(
-      "backgroundB",
+      "background1",
       "../../resources/backgrounds/BackgroundB.png"
     );
     this.load.image("carnal-fullArt", "../../resources/carnal_fullArt.png");
@@ -71,7 +71,7 @@ export default class Begin extends Phaser.Scene {
     this.centerY = map_height / 2;
 
     // Scene Backgorund
-    let bg = this.add.image(this.centerX, this.centerY, "backgroundB");
+    let bg = this.add.image(this.centerX, this.centerY, "background1");
     bg.setScale(this.canvasWidth / bg.height);
 
     // PJs
@@ -88,32 +88,24 @@ export default class Begin extends Phaser.Scene {
     );
     carnal.setScale(0.3);
 
+    
 //    |\__/,|   (`\
 //  _.|o o  |_   ) )
 //-(((---(((--------
 
     this.canSkip = false;
     this.dialegs = [
-        ["Ets la Paloma tu no? M'han dit que tu hem pots ajudar a escapar d'aquí.", "carnal"],
-        ["Escapar? De presó? Difícil. Però t'han informat bé. L'única cosa és... que té un preu.", "paloma"],
-        ["Un preu? Quin?", "carnal"],
-        ["Sí, veuràs... últimament una gran plaga de rates ha envaït la presó. Jo ja estic vella i no soc el que era.", "paloma"],
-        ["La questió es que la millor de les herbes gateres creix per aquestes àrees infestades. Si vols la llibertat ja et fas una idea del que vull. Ni hi pensis en tornar amb les mans buides.", "paloma"],
-        ["Està bé. Però assegura't que compleixes la teva part.", "carnal"],
-        ["Si compleixes la teva, jo compliré la meva. Sense excuses. Miaau.", "paloma"]
-    ];
+        ["Com t'ho havia promés, aquí tens.", "carnal"],
+        ["Miiaaau!!! Herba gateraaaa!!!!", "paloma"],
+        ["Sí, sí, pero abans obrem la porta!", "carnal"],
+        ["Que si, aquí teens. Miaaau! La meva herbaa és tota meeva!", "paloma"]
+    ]
     this.dialegActual = 0;
     this.dialegPantalla = new Dialogo(this, this.dialegs[this.dialegActual][0], this.dialegs[this.dialegActual][1]);
     this.dialegPantalla.on("dialogoCompleto", () => {
         console.log("Dialeg complet");
         this.canSkip = true;
     })
-
-    if(localStorage.getItem("carregar")==1){
-      if(this.game.config.escena=="Nivell1") localStorage.setItem("carregar",0);
-      this.scene.stop();
-      this.scene.launch("Nivell1");
-    }
 
     // this.time.delayedCall(3000, () => {
     //   console.log("Destroy dialeg!");
@@ -134,9 +126,7 @@ export default class Begin extends Phaser.Scene {
         }
         else {
             this.time.delayedCall(1000, () => {
-                console.log("Escena completa!");
-                this.scene.stop();
-                this.scene.launch("Nivell1");
+            console.log("Escena completa!");
             });
         }
     }
