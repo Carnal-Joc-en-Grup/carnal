@@ -21,7 +21,7 @@ export default class Nivell1 extends Phaser.Scene {
         this.player = null;
         this.cursors = null;
         this.herb = null;
-        this.score = 5;
+        this.score = 0;
         this.gameOver = false;
         this.canvasWidth = null;
         this.canvasHeight = null;
