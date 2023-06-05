@@ -125,7 +125,6 @@ export default class Nivell1 extends Phaser.Scene {
         var posicions = [
           {x:1035,y:580},
           {x:1722,y:580},
-          {x:2426,y:580},
           {x:2117,y:216},
           {x:1114,y:434},
           {x:1095,y:70}
