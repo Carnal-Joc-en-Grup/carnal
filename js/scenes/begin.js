@@ -1,4 +1,6 @@
 "use strict";
+//const URL = "../"
+const URL = ""
 
 function loadFont(name, url) {
   var newFont = new FontFace(name, `url(${url})`);
@@ -12,8 +14,8 @@ function loadFont(name, url) {
     });
 }
 
-loadFont("gatNums", "../../resources/fonts/nums.ttf");
-loadFont("gatText", "../../resources/fonts/Meowcat.ttf");
+loadFont("gatNums", URL + "../resources/fonts/nums.ttf");
+loadFont("gatText", URL + "../resources/fonts/Meowcat.ttf");
 
 export default class Begin extends Phaser.Scene {
   constructor() {
@@ -39,18 +41,18 @@ export default class Begin extends Phaser.Scene {
     //Backgrounds
     this.load.image(
       "backgroundB",
-      "../../resources/backgrounds/BackgroundB.png"
+      URL + "../resources/backgrounds/BackgroundB.png"
     );
-    this.load.image("carnal-fullArt", "../../resources/carnal_fullArt.png");
-    this.load.image("paloma-fullArt", "../../resources/paloma_fullArt.png");
+    this.load.image("carnal-fullArt", URL + "../resources/carnal_fullArt.png");
+    this.load.image("paloma-fullArt", URL + "../resources/paloma_fullArt.png");
     // Dialegs
     this.load.image(
       "carnal-dialeg",
-      "../../resources/Dialeg/carnal_dialeg.png"
+      URL + "../resources/Dialeg/carnal_dialeg.png"
     );
     this.load.image(
       "paloma-dialeg",
-      "../../resources/Dialeg/paloma_dialeg.png"
+      URL + "../resources/Dialeg/paloma_dialeg.png"
     );
   }
 
