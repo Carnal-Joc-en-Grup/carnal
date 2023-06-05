@@ -1,9 +1,9 @@
-import Nivell1 from "./scenes/platformgame.js";
-import Nivell3 from "./scenes/nivell3.js";
-import Nivell2 from "./scenes/nivell2.js";
-import Pause from "./scenes/pauseScene.js";
-import Begin from "./scenes/begin.js";
-import End from "./scenes/end.js";
+import Nivell1 from "https://carnal-joc-en-grup.github.io/carnal/js/scenes/platformgame.js";
+import Nivell3 from "https://carnal-joc-en-grup.github.io/carnal/js/scenes/nivell3.js";
+import Nivell2 from "https://carnal-joc-en-grup.github.io/carnal/js/scenes/nivell2.js";
+import Pause from "https://carnal-joc-en-grup.github.io/carnal/js/scenes/pauseScene.js";
+import Begin from "https://carnal-joc-en-grup.github.io/carnal/js/scenes/begin.js";
+import End from "https://carnal-joc-en-grup.github.io/carnal/js/scenes/end.js";
 
 //           .__....._             _.....__,
 //             .": o :':         ;': o :".
