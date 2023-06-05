@@ -68,6 +68,7 @@ export default class Nivell1 extends Phaser.Scene {
 
         // Enemics
         this.load.spritesheet("rat_walk", '../../resources/rats_sprites/rat_walk.png', { frameWidth: 343, frameHeight: 142 });
+
     }
 
     create() {
@@ -195,6 +196,12 @@ export default class Nivell1 extends Phaser.Scene {
 
         this.map = map;
         this.input.keyboard.on('keydown-ESC', this.pauseJoc, this);
+        if(localStorage.getItem("carregar")==1){
+          this.scene.stop();
+          this.scene.launch(this.game.config.escena);
+
+        }
+
     }
     update() {
         if (this.gameOver || this.pause) return;

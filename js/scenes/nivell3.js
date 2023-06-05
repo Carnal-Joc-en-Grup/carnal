@@ -226,10 +226,10 @@ export default class Nivell3 extends Phaser.Scene {
       this.scene.pause();
     }
     canviarNivell(){
-      if(this.inputKeys.interact.isDown && this.score==9)
+      if(this.inputKeys.interact.isDown && this.score==15)
       {
         this.scene.stop();
-        this.scene.launch("Nivell3");
+        this.scene.launch("End");
         console.log("sortir");
         }
     }

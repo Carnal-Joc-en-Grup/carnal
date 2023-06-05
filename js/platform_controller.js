@@ -14,7 +14,7 @@ var config = {
 		default: 'arcade',
 		arcade: {
 			gravity: {y: 350},
-			debug: true
+			debug: false
 		}
 	},
     scene: [ Nivell1, Nivell2, Nivell3, Pause ],
@@ -24,3 +24,15 @@ var game = new Phaser.Game(config);
 game.config.vides = 9;
 game.config.ratesMatades = 0;
 game.config.started = false;
+if(localStorage.getItem("carregar")==1){
+	console.log("Carregar partida");
+	var data = JSON.parse(localStorage.getItem("partida"));
+	if(data.escena=="Nivell1") localStorage.setItem("carregar",0);
+	else{
+		game.config.vides = data.vides;
+		game.config.ratesMatades = data.rates;
+		game.config.escena = data.escena;
+
+	}
+
+}
