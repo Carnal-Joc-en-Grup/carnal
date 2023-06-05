@@ -74,6 +74,7 @@ export default class Nivell2 extends Phaser.Scene {
     }
 
     create() {
+        console.log("Nivell 2");
         // Get canvas size
         this.game.config.current = this;
         this.game.config.started = true;
