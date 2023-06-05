@@ -1,4 +1,4 @@
-import PlatformScene from "./scenes/platformgame.js";
+import Nivell1 from "./scenes/platformgame.js";
 import Nivell3 from "./scenes/nivell3.js";
 import Nivell2 from "./scenes/nivell2.js";
 import Pause from "./scenes/pauseScene.js";
@@ -17,7 +17,10 @@ var config = {
 			debug: true
 		}
 	},
-    scene: [ PlatformScene, Nivell2, Nivell3, Pause ]
+    scene: [ Nivell1, Nivell2, Nivell3, Pause ],
 };
 
 var game = new Phaser.Game(config);
+game.config.vides = 9;
+game.config.ratesMatades = 0;
+game.config.started = false;

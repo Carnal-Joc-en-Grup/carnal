@@ -19,11 +19,12 @@ const JUMP_SPEED = 200;
 const SPRITE_SIZE = 500;
 
 export default class Carnal extends Phaser.GameObjects.Sprite {
-    constructor(data, hp = 9) {
+    constructor(data) {
         let { scene, x, y, texture, frame } = data;
         super(scene, x, y, texture, frame);
         // Variables del personatge
-        this.hitPoints = hp;
+        this.hitPoints = this.scene.game.config.vides;
+        this.rates=this.scene.game.config.ratesMatades;
         this.actualState = states.idle;
         this.isDead = false;
         this.scene.add.existing(this);
@@ -31,7 +32,6 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         this.setScale(0.25);
         this.moving = false;
         this.canMove = true;
-        this.rates=0;
         this.hitbox = {
             sizeX: 250,
             sizeY: 300,
@@ -45,102 +45,103 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         console.log("Create Carnal");
         this.scene.physics.world.enable(this);
         this.body.setBounce(0.1); // Configurar el rebot del jugador
-
-    this.scene.anims.create({
-      key: "walk",
-      frames: this.scene.anims.generateFrameNumbers("carnal_walk", {
-        start: 0,
-        end: 4,
-      }),
-      frameRate: 6,
-      repeat: 0,
-    });
-    this.scene.anims.create({
-      key: "attack",
-      frames: this.scene.anims.generateFrameNumbers("carnal_attack", {
-        start: 0,
-        end: 3,
-      }),
-      frameRate: 6,
-      repeat: 0,
-    });
-    this.scene.anims.create({
-      key: "sneak",
-      frames: this.scene.anims.generateFrameNumbers("carnal_sneak", {
-        start: 0,
-        end: 0,
-      }),
-      frameRate: 6,
-      repeat: 0,
-    });
-    this.scene.anims.create({
-      key: "sneak_walk",
-      frames: this.scene.anims.generateFrameNumbers("carnal_sneak", {
-        start: 0,
-        end: 2,
-      }),
-      frameRate: 6,
-      repeat: 0,
-    });
-    this.scene.anims.create({
-      key: "sneak_attack",
-      frames: this.scene.anims.generateFrameNumbers("carnal_sneak_attack", {
-        start: 0,
-        end: 2,
-      }),
-      frameRate: 6,
-      repeat: 0,
-    });
-    this.scene.anims.create({
-      key: "jump",
-      frames: this.scene.anims.generateFrameNumbers("carnal_jump", {
-        start: 0,
-        end: 3,
-      }),
-      frameRate: 6,
-      repeat: 0,
-    });
-    this.scene.anims.create({
-      key: "fall",
-      frames: this.scene.anims.generateFrameNumbers("carnal_jump", {
-        start: 4,
-        end: 4,
-      }),
-      frameRate: 6,
-    });
-    this.scene.anims.create({
-      key: "land",
-      frames: this.scene.anims.generateFrameNumbers("carnal_jump", {
-        start: 5,
-        end: 7,
-      }),
-      frameRate: 6,
-      repeat: 0,
-    });
-    this.scene.anims.create({
-      key: "idle",
-      frames: this.scene.anims.generateFrameNumbers("carnal_walk", {
-        start: 0,
-        end: 0,
-      }),
-      frameRate: 0,
-    });
-    this.scene.anims.create({
-      key: "damage",
-      frames: this.scene.anims.generateFrameNumbers("carnal_damage", {
-        start: 0,
-        end: 0,
-      }),
-      frameRate: 1,
-    });
-    this.scene.anims.create({
-      key: "death",
-      frames: this.scene.anims.generateFrameNumbers("carnal_death", {
-        start: 0,
-        end: 0,
-      }),
-      frameRate: 0,
-    });
+        if(!this.scene.anims.exists("walk")){
+      this.scene.anims.create({
+        key: "walk",
+        frames: this.scene.anims.generateFrameNumbers("carnal_walk", {
+          start: 0,
+          end: 4,
+        }),
+        frameRate: 6,
+        repeat: 0,
+      });
+      this.scene.anims.create({
+        key: "attack",
+        frames: this.scene.anims.generateFrameNumbers("carnal_attack", {
+          start: 0,
+          end: 3,
+        }),
+        frameRate: 6,
+        repeat: 0,
+      });
+      this.scene.anims.create({
+        key: "sneak",
+        frames: this.scene.anims.generateFrameNumbers("carnal_sneak", {
+          start: 0,
+          end: 0,
+        }),
+        frameRate: 6,
+        repeat: 0,
+      });
+      this.scene.anims.create({
+        key: "sneak_walk",
+        frames: this.scene.anims.generateFrameNumbers("carnal_sneak", {
+          start: 0,
+          end: 2,
+        }),
+        frameRate: 6,
+        repeat: 0,
+      });
+      this.scene.anims.create({
+        key: "sneak_attack",
+        frames: this.scene.anims.generateFrameNumbers("carnal_sneak_attack", {
+          start: 0,
+          end: 2,
+        }),
+        frameRate: 6,
+        repeat: 0,
+      });
+      this.scene.anims.create({
+        key: "jump",
+        frames: this.scene.anims.generateFrameNumbers("carnal_jump", {
+          start: 0,
+          end: 3,
+        }),
+        frameRate: 6,
+        repeat: 0,
+      });
+      this.scene.anims.create({
+        key: "fall",
+        frames: this.scene.anims.generateFrameNumbers("carnal_jump", {
+          start: 4,
+          end: 4,
+        }),
+        frameRate: 6,
+      });
+      this.scene.anims.create({
+        key: "land",
+        frames: this.scene.anims.generateFrameNumbers("carnal_jump", {
+          start: 5,
+          end: 7,
+        }),
+        frameRate: 6,
+        repeat: 0,
+      });
+      this.scene.anims.create({
+        key: "idle",
+        frames: this.scene.anims.generateFrameNumbers("carnal_walk", {
+          start: 0,
+          end: 0,
+        }),
+        frameRate: 0,
+      });
+      this.scene.anims.create({
+        key: "damage",
+        frames: this.scene.anims.generateFrameNumbers("carnal_damage", {
+          start: 0,
+          end: 0,
+        }),
+        frameRate: 1,
+      });
+      this.scene.anims.create({
+        key: "death",
+        frames: this.scene.anims.generateFrameNumbers("carnal_death", {
+          start: 0,
+          end: 0,
+        }),
+        frameRate: 0,
+      });
+    }
     this.on("animationstart", () => {
       if (this.actualState == states.attack || this.actualState == states.sneakAttack) this.atacar();
     });
@@ -281,6 +282,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
           delay: 500,
           callback: () =>{
               this.hitPoints--;
+              this.scene.game.config.vides--;
               console.log("Carnal damaged. " + this.hitPoints + " hit points left");
               this.scene.canviarVidesUI(this.hitPoints);
 
@@ -366,6 +368,7 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
       }
       if(isAnyEnemyInRange && this.scene.rates[i].active){
         this.rates++;
+        this.scene.game.config.ratesMatades++;
         this.scene.rates[i].setActive(false).setVisible(false);
         this.scene.canviarRatesUI(this.rates);
       }
