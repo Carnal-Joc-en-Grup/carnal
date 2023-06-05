@@ -269,11 +269,11 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
         });
         break;
       case states.damage: // --------------------------------- DAMAGE
+      if(this.isDead) break;
         this.anims.play("damage", true);
         if(this.invencible) break;
         this.invencible = true;
         var timeout = setTimeout(() => {this.invencible=false},2500);
-        console.log(this.hitPoints);
         var cam = this.scene.cameras.main;
         if (!this.canTakeDamage) break;
         this.canTakeDamage = false;
@@ -312,13 +312,13 @@ export default class Carnal extends Phaser.GameObjects.Sprite {
             loop: false
         });
         cam.on(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-          // loadpage("../../index.html")
           cam.fadeIn(500);
           var rect = this.scene.add.rectangle(this.scene.canvasWidth/2, this.scene.canvasHeight/2, this.scene.canvasWidth, this.scene.canvasHeight, 0x000000);
           var text = this.scene.add.text(this.scene.canvasWidth/2-180, this.scene.canvasHeight/2-75, "GAME OVER", { fontSize: "100px", fontFamily: "gatText" })
           text.setScrollFactor(0);
           rect.setScrollFactor(0);
           this.scene.gameOver = true;
+          setTimeout(() => {loadpage("../../index.html")}, 4000);
         })
         break;
     }
