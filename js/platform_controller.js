@@ -3,6 +3,7 @@ import Nivell3 from "./scenes/nivell3.js";
 import Nivell2 from "./scenes/nivell2.js";
 import Pause from "./scenes/pauseScene.js";
 import Begin from "./scenes/begin.js";
+import End from "./scenes/end.js";
 
 //           .__....._             _.....__,
 //             .": o :':         ;': o :".
@@ -32,7 +33,7 @@ var config = {
 			debug: false
 		}
 	},
-    scene: [ Begin, Nivell1, Nivell2, Nivell3, Pause ],
+    scene: [ Begin, Nivell1, Nivell2, Nivell3, Pause, End ],
 };
 
 var game = new Phaser.Game(config);

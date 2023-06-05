@@ -17,7 +17,7 @@ loadFont("gatText", "../../resources/fonts/Meowcat.ttf");
 
 export default class End extends Phaser.Scene {
   constructor() {
-    super("PlatformScene");
+    super("End");
     this.platforms = null;
     this.player = null;
     this.cursors = null;
@@ -127,6 +127,25 @@ export default class End extends Phaser.Scene {
         else {
             this.time.delayedCall(1000, () => {
             console.log("Escena completa!");
+            var cam = this.cameras.main;
+            cam.shake(500);
+            this.time.addEvent({
+                delay: 2000,
+                callback: () =>{
+                    cam.fade(2000);
+                },
+                loop: false
+            });
+            console.log (cam)
+            cam.on('camerafadeoutcomplete', () => {
+              cam.fadeIn(500);
+              var rect = this.add.rectangle(this.canvasWidth/2, this.canvasHeight/2, this.canvasWidth, this.canvasHeight, 0x000000);
+              this.text = this.add.text(this.canvasWidth/2, this.canvasHeight/2, "VICTORY", { fontSize: "100px", fontFamily: "gatText", fill: "#fff" }).setOrigin(0.5);
+              this.text.setScrollFactor(0);
+              rect.setScrollFactor(0);
+              this.gameOver = true;
+              setTimeout(() => {loadpage("../../index.html")}, 4000);
+            })
             });
         }
     }

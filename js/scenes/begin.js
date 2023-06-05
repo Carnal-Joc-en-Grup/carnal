@@ -17,7 +17,7 @@ loadFont("gatText", "../../resources/fonts/Meowcat.ttf");
 
 export default class Begin extends Phaser.Scene {
   constructor() {
-    super("PlatformScene");
+    super("Begin");
     this.platforms = null;
     this.player = null;
     this.cursors = null;
