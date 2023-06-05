@@ -38,7 +38,7 @@ export default class Begin extends Phaser.Scene {
     // Carnal.preload(this);
     //Backgrounds
     this.load.image(
-      "background1",
+      "backgroundB",
       "../../resources/backgrounds/BackgroundB.png"
     );
     this.load.image("carnal-fullArt", "../../resources/carnal_fullArt.png");
@@ -71,7 +71,7 @@ export default class Begin extends Phaser.Scene {
     this.centerY = map_height / 2;
 
     // Scene Backgorund
-    let bg = this.add.image(this.centerX, this.centerY, "background1");
+    let bg = this.add.image(this.centerX, this.centerY, "backgroundB");
     bg.setScale(this.canvasWidth / bg.height);
 
     // PJs
@@ -109,6 +109,12 @@ export default class Begin extends Phaser.Scene {
         this.canSkip = true;
     })
 
+    if(localStorage.getItem("carregar")==1){
+      if(this.game.config.escena=="Nivell1") localStorage.setItem("carregar",0);
+      this.scene.stop();
+      this.scene.launch("Nivell1");
+    }
+
     // this.time.delayedCall(3000, () => {
     //   console.log("Destroy dialeg!");
     //   d1.destroy();
@@ -128,7 +134,9 @@ export default class Begin extends Phaser.Scene {
         }
         else {
             this.time.delayedCall(1000, () => {
-            console.log("Escena completa!");
+                console.log("Escena completa!");
+                this.scene.stop();
+                this.scene.launch("Nivell1");
             });
         }
     }
