@@ -97,7 +97,7 @@ export default class End extends Phaser.Scene {
     this.dialegs = [
         ["Com t'ho havia promés, aquí tens.", "carnal"],
         ["Miiaaau!!! Herba gateraaaa!!!!", "paloma"],
-        ["Sí, sí, pero abans obrem la porta!", "carnal"],
+        ["Sí, sí, però abans obrem la porta!", "carnal"],
         ["Que si, aquí teens. Miaaau! La meva herbaa és tota meeva!", "paloma"]
     ]
     this.dialegActual = 0;
