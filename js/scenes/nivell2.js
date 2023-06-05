@@ -3,8 +3,8 @@
 //const URL = "../"
 const URL = ""
 
-import Carnal from "../js/classes/carnal.js";
-import Rata from "../js/classes/rata.js";
+import Carnal from "./js/classes/carnal.js";
+import Rata from "./js/classes/rata.js";
 
 
 function loadFont(name, url) {
