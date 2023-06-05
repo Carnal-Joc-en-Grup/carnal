@@ -15,7 +15,7 @@ function loadFont(name, url) {
 loadFont("gatNums", "../../resources/fonts/nums.ttf");
 loadFont("gatText", "../../resources/fonts/Meowcat.ttf");
 
-export default class Begin extends Phaser.Scene {
+export default class End extends Phaser.Scene {
   constructor() {
     super("PlatformScene");
     this.platforms = null;
@@ -88,20 +88,18 @@ export default class Begin extends Phaser.Scene {
     );
     carnal.setScale(0.3);
 
+    
 //    |\__/,|   (`\
 //  _.|o o  |_   ) )
 //-(((---(((--------
 
     this.canSkip = false;
     this.dialegs = [
-        ["Ets la Paloma tu no? M'han dit que tu hem pots ajudar a escapar d'aquí.", "carnal"],
-        ["Escapar? De presó? Difícil. Però t'han informat bé. L'única cosa és... que té un preu.", "paloma"],
-        ["Un preu? Quin?", "carnal"],
-        ["Sí, veuràs... últimament una gran plaga de rates ha envaït la presó. Jo ja estic vella i no soc el que era.", "paloma"],
-        ["La questió es que la millor de les herbes gateres creix per aquestes àrees infestades. Si vols la llibertat ja et fas una idea del que vull. Ni hi pensis en tornar amb les mans buides.", "paloma"],
-        ["Està bé. Però assegura't que compleixes la teva part.", "carnal"],
-        ["Si compleixes la teva, jo compliré la meva. Sense excuses. Miaau.", "paloma"]
-    ];
+        ["Com t'ho havia promés, aquí tens.", "carnal"],
+        ["Miiaaau!!! Herba gateraaaa!!!!", "paloma"],
+        ["Sí, sí, pero abans obrem la porta!", "carnal"],
+        ["Que si, aquí teens. Miaaau! La meva herbaa és tota meeva!", "paloma"]
+    ]
     this.dialegActual = 0;
     this.dialegPantalla = new Dialogo(this, this.dialegs[this.dialegActual][0], this.dialegs[this.dialegActual][1]);
     this.dialegPantalla.on("dialogoCompleto", () => {
