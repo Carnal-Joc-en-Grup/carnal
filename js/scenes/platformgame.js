@@ -115,7 +115,7 @@ export default class Nivell1 extends Phaser.Scene {
         //En Facu havia llevat aquest tros i no es veia es moix per això, no se perquè ha ha llevat però així funciona
         this.player = new Carnal({
             scene: this, // Passa l'objecte a l'escena actual
-            x: 2400,
+            x: 160,
             y: 610,
             texture: "carnal_idle",
         })

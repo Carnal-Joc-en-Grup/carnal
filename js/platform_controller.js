@@ -18,7 +18,7 @@ var config = {
 			debug: false
 		}
 	},
-    scene: [ Nivell1, Nivell2, Nivell3, Pause ],
+    scene: [ Begin, Nivell1, Nivell2, Nivell3, Pause ],
 };
 
 var game = new Phaser.Game(config);
@@ -28,12 +28,11 @@ game.config.started = false;
 if(localStorage.getItem("carregar")==1){
 	console.log("Carregar partida");
 	var data = JSON.parse(localStorage.getItem("partida"));
-	if(data.escena=="Nivell1") localStorage.setItem("carregar",0);
-	else{
+	
 		game.config.vides = data.vides;
 		game.config.ratesMatades = data.rates;
 		game.config.escena = data.escena;
 
-	}
+	
 
 }
