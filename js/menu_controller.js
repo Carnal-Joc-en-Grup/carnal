@@ -1,13 +1,12 @@
 function platform_game(){
 	localStorage.setItem("carregar",0);
-	loadpage("./html/platform.html");
+	loadpage("https://carnal-joc-en-grup.github.io/carnal/html/platform.html");
 
 }
 
 function load(){
-	// loadpage("./html/load.html");
 	localStorage.setItem("carregar",1);
-	loadpage("./html/platform.html");
+	loadpage("https://carnal-joc-en-grup.github.io/carnal/html/platform.html");
 	
 }
 

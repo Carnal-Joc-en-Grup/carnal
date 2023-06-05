@@ -27,7 +27,7 @@ export default class Pause extends Phaser.Scene {
         const botoSortir = this.add.text(this.canvasWidth/2 - 170, 450, "Sortir", { fontSize: "100px", fontFamily: "gatText", fill: '#000', backgroundColor: '#5B666F', textPadding: {x: 0, y:0}, fixedWidth: 300, fixedHeight: 100, align: 'center' });
         botoSortir.setInteractive();
         botoSortir.on('pointerdown', () => {
-            loadpage("../../index.html");
+            loadpage("https://carnal-joc-en-grup.github.io/carnal/index.html");
         });
         this.input.keyboard.on('keydown-ESC', () => {
             this.game.scene.resume(this.game.config.current);

@@ -3,8 +3,8 @@
 import Carnal from "https://carnal-joc-en-grup.github.io/carnal/js/classes/carnal.js";
 import Rata from "https://carnal-joc-en-grup.github.io/carnal/js/classes/rata.js";
 
-import Carnal from "./js/classes/carnal.js";
-import Rata from "./js/classes/rata.js";
+import Carnal from "https://carnal-joc-en-grup.github.io/carnal/js/classes/carnal.js";
+import Rata from "https://carnal-joc-en-grup.github.io/carnal/js/classes/rata.js";
 
 
 function loadFont(name, url) {
