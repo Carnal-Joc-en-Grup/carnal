@@ -29,6 +29,10 @@ export default class Begin extends Phaser.Scene {
     this.pause = false;
     this.centerX = null;
     this.centerY = null;
+    this.canSkip = null;
+    this.dialegActual = 0;
+    this.dialegs = null;
+    this.dialegPantalla = null;
   }
   preload() {
     // Carnal.preload(this);
@@ -84,21 +88,47 @@ export default class Begin extends Phaser.Scene {
     );
     carnal.setScale(0.3);
 
-    let CanSkip = false;
-    let d1 = new Dialogo(this, "Mi nombre es Carnal y soy un gato que gatea", "carnal");
-    d1.on("dialogoCompleto", () => {
+    this.canSkip = false;
+    this.dialegs = [
+        ["Ets la Paloma tu no? M'han dit que tu hem pots ajudar a escapar d'aquí.", "carnal"],
+        ["Escapar? De presó? Difícil. Però t'han informat bé. L'única cosa és... que té un preu.", "paloma"],
+        ["Un preu? Quin?", "carnal"],
+        ["Sí, veuràs... últimament una gran plaga de rates ha envaït la presó. Jo ja estic vella i no soc el que era.", "paloma"],
+        ["La questió es que la millor de les herbes gateres creix per aquestes àrees infestades. Si vols la llibertat ja et fas una idea del que vull. Ni hi pensis en tornar amb les mans buides.", "paloma"],
+        ["Està bé. Però assegura't que compleixes la teva part.", "carnal"],
+        ["Si compleixes la teva, jo compliré la meva. Sense excuses.", "paloma"]
+    ];
+    this.dialegActual = 0;
+    this.dialegPantalla = new Dialogo(this, this.dialegs[this.dialegActual][0], this.dialegs[this.dialegActual][1]);
+    this.dialegPantalla.on("dialogoCompleto", () => {
         console.log("Dialeg complet");
-        CanSkip = true;
+        this.canSkip = true;
     })
-    if (this.inputKeys.attack.isDown && CanSkip) {
-        d1.destroy();
-    }
+
     // this.time.delayedCall(3000, () => {
     //   console.log("Destroy dialeg!");
     //   d1.destroy();
     // });
   }
-  update() {}
+  update() {
+    if (this.inputKeys.attack.isDown && this.canSkip) {
+        this.dialegPantalla.destroy();
+        this.dialegActual++;
+        this.canSkip = false;
+        if (this.dialegActual < this.dialegs.length) {
+            this.dialegPantalla = new Dialogo(this, this.dialegs[this.dialegActual][0], this.dialegs[this.dialegActual][1]);
+            this.dialegPantalla.on("dialogoCompleto", () => {
+                console.log("Dialeg complet");
+                this.canSkip = true;
+            });
+        }
+        else {
+            this.time.delayedCall(1000, () => {
+            console.log("Escena completa!");
+            });
+        }
+    }
+  }
 }
 class Dialogo extends Phaser.GameObjects.Container {
   constructor(scene, dialogText, character = "paloma") {
@@ -109,8 +139,8 @@ class Dialogo extends Phaser.GameObjects.Container {
     this.character = character;
 
     const dialogTextStyle = {
-      fontFamily: "gatNums",
-      fontSize: "24px",
+      fontFamily: "gatText",
+      fontSize: "32px",
       color: "#ffed89",
       align: "left",
       wordWrap: { width: 400, useAdvancedWrap: true },
@@ -150,13 +180,11 @@ class Dialogo extends Phaser.GameObjects.Container {
     const textObject = this.getAt(1);
     const fullText = this.dialogText;
     let currentCharIndex = 0;
-
     this.scene.time.addEvent({
       delay: 50,
       callback: () => {
         textObject.text += fullText[currentCharIndex];
         currentCharIndex++;
-
         if (currentCharIndex === fullText.length) {
           // Se ha mostrado todo el texto
           this.emit("dialogoCompleto");
