@@ -14,14 +14,14 @@ function loadFont(name, url) {
 loadFont("gatNums","../../resources/fonts/nums.ttf");
 loadFont("gatText","../../resources/fonts/Meowcat.ttf");
 
-export default class PlatformScene extends Phaser.Scene {
+export default class Nivell1 extends Phaser.Scene {
     constructor() {
-        super("PlatformScene");
+        super("Nivell1");
         this.platforms = null;
         this.player = null;
         this.cursors = null;
         this.herb = null;
-        this.score = 0;
+        this.score = 5;
         this.gameOver = false;
         this.canvasWidth = null;
         this.canvasHeight = null;
@@ -72,6 +72,8 @@ export default class PlatformScene extends Phaser.Scene {
 
     create() {
         // Get canvas size
+        this.game.config.current = this;
+        this.game.config.started = true;
         let { width, height } = this.sys.game.canvas;
         this.canvasWidth = width;
         this.canvasHeight = height;
@@ -94,10 +96,11 @@ export default class PlatformScene extends Phaser.Scene {
         const tilesetCollision = map.addTilesetImage("Collision");
         const tilesetBox = map.addTilesetImage("caixa")
 
-        const layerTiles = map.createLayer("Tiles", [tilesetTuberies, tilesetVentilacio, tilesetBox]);
+        const layerTiles = map.createLayer("Tiles", [tilesetTuberies, tilesetBox]);
         const layerHerba = map.createLayer("Tiles_herba", [tilesetHerba]);
+        const layerNext = map.createLayer("Next", [tilesetVentilacio]);
         const layerCollision = map.createLayer("Collisions", []);
-        const layerCollisionRata = map.createLayer("Collisions_rata", [tilesetCollision]);
+        const layerCollisionRata = map.createLayer("Collisions_rata", []);
 
 
         // He copiat es setScale(0.2) per a tots però no se si ha de ser així
@@ -106,11 +109,12 @@ export default class PlatformScene extends Phaser.Scene {
         layerHerba.setScale(0.2);
         layerCollision.setScale(0.2);
         layerCollisionRata.setScale(0.2);
+        layerNext.setScale(0.2);
 
         //En Facu havia llevat aquest tros i no es veia es moix per això, no se perquè ha ha llevat però així funciona
         this.player = new Carnal({
             scene: this, // Passa l'objecte a l'escena actual
-            x: 100,
+            x: 2400,
             y: 610,
             texture: "carnal_idle",
         })
@@ -122,8 +126,7 @@ export default class PlatformScene extends Phaser.Scene {
           {x:2426,y:580},
           {x:2117,y:216},
           {x:1114,y:434},
-          {x:1095,y:70},
-          {x:190,y:610},
+          {x:1095,y:70}
         ];
 
         this.rates=[];
@@ -160,6 +163,7 @@ export default class PlatformScene extends Phaser.Scene {
           this.physics.add.overlap(this.rates[i], this.player, (a,b) => {if(a.active) b.rebreMal();});
         }
         this.physics.add.overlap(this.player, layerHerba, (a, b) => this.collectHerba(a, b));
+        this.physics.add.overlap(this.player, layerNext, (a,b) => {if(b.index > -1) this.canviarNivell()});
 
         layerTiles.setCollisionBetween(5, 23);
         layerCollision.setCollisionBetween(11, 11);
@@ -168,6 +172,8 @@ export default class PlatformScene extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, map_width, map_height); // Ajusta els límits de la càmera segons el tamany de l'escena
         this.cameras.main.startFollow(this.player, true, 0.5, 0.5); // Estableix a Carnal com a l'objecte a seguir amb la càmara
 
+        this.videsStart = this.player.hitPoints;
+        this.ratesStart = this.player.rates;
         this.cors = [];
         for (var i = 0; i < this.player.hitPoints; i++) {
             this.cors[i] = this.add.sprite(45 + 35 * i, 40, 'cor');
@@ -201,7 +207,6 @@ export default class PlatformScene extends Phaser.Scene {
             this.score++;
             this.map.removeTile(herba);
             this.puntsUI.setText(this.score);
-
         }
     }
     canviarRatesUI(rates){
@@ -214,6 +219,14 @@ export default class PlatformScene extends Phaser.Scene {
       this.pause = false;
       this.scene.launch("Pause");
       this.scene.pause();
+    }
+    canviarNivell(){
+      if(this.inputKeys.interact.isDown && this.score==5)
+      {
+        this.scene.stop();
+        this.scene.launch("Nivell2");
+        console.log("sortir");
+      }
     }
 }
 
