@@ -115,7 +115,7 @@ export default class Nivell2 extends Phaser.Scene {
         layerCollisionRata.setScale(0.2);
         layerNext.setScale(0.2);
 
-        //En Facu havia llevat aquest tros i no es veia es moix per això, no se perquè ha ha llevat però així funciona
+        //Na Diana havia llevat aquest tros i no es veia es moix per això, no se perquè ha ha llevat però així funciona
         this.player = new Carnal({
             scene: this, // Passa l'objecte a l'escena actual
             x: 100,
