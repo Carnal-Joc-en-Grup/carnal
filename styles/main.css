@@ -14,6 +14,7 @@ input[type=number] {
 
 body {
 	background-image: url(../resources/backgrounds/Carnal\ Menu\ Bg.jpg);
+	background-size: cover;
 } 
 
 .menu-object{
